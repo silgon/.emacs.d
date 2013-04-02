@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: \begin{environment} ... \end{environment}
+# key: begin
+# --
+\begin{block}{${1:title}}<1->
+$0
+\end{block}
