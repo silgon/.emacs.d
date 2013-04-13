@@ -150,6 +150,8 @@
 ;; keybinding to deactivate yas mode (sometimes it's useful)
 (global-set-key (kbd "C-x y") 'yas/minor-mode) 
 (global-set-key (kbd "C-x C-y") 'yas-global-mode)
+(setq ac-source-yasnippet nil)
+
 
 
 ;;autocomplete
@@ -197,6 +199,8 @@
 ;;show all in org-mode
 (global-set-key (kbd "C-. C-a") 'show-all)
 (global-set-key (kbd "C-. l") 'visual-line-mode)
+(global-set-key (kbd "C-. C-b m") 'menu-bar-mode)
+(global-set-key (kbd "C-. C-b t") 'tool-bar-mode)
 
 
 ;; if X11 or terminal
