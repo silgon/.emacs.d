@@ -246,6 +246,8 @@
      ;;   (add-to-list 'org-file-apps '("\\.txt\\'" . "notepad.exe %s") t))
      ;; Change .pdf association directly within the alist
      (setcdr (assoc "\\.pdf\\'" org-file-apps) "evince %s")))
+;; org to pdf with texi2dvi
+(setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %s"))
 
 
 

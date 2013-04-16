@@ -1,0 +1,4 @@
+# name: ccout 
+# key: ccout
+# --
+std::cout << ${0} << std::endl;
