@@ -17,6 +17,7 @@
 
 ;; unset keys
 ;; (global-unset-key "\C-.")
+(define-key (current-global-map) (kbd "C-.") nil)
 ;; miscellaneous
 (global-set-key "\C-xc" 'calendar)
 (global-set-key "\C-xt" 'eshell)
