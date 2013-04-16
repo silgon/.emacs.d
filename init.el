@@ -15,6 +15,8 @@
 ;; no transient mark
 (transient-mark-mode -1)
 
+;; unset keys
+;; (global-unset-key "\C-.")
 ;; miscellaneous
 (global-set-key "\C-xc" 'calendar)
 (global-set-key "\C-xt" 'eshell)
