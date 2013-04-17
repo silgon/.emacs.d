@@ -24,6 +24,12 @@
 (global-set-key (kbd "C-. C-c") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-. C-l") 'global-linum-mode) ;; number of line
 
+;; don't show the scroll and others
+(scroll-bar-mode -1)
+;; (menu-bar-mode -1)
+(tool-bar-mode -1)
+
+
 ;;column number
 (column-number-mode t)
 
@@ -76,10 +82,15 @@
   ;; tramp-compat.el clobbers this variable!
   (eval-after-load "tramp-compat"
     '(add-to-list 'byte-compile-not-obsolete-vars
-                  'font-lock-beginning-of-syntax-function)))
+                  'font-lock-beginning-of-syntax-function))
+  ;; org to pdf with texi2dvi
+  (setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %s"))
+
+
+  )
 
 (when (and (equal emacs-major-version 24)
-		   (or (equal emacs-minor-version 1) (equal emacs-minor-version 2)))
+	   (or (equal emacs-minor-version 1) (equal emacs-minor-version 2)))
   ;;first
   (eval-after-load "bytecomp"
     '(add-to-list 'byte-compile-not-obsolete-vars
@@ -100,27 +111,29 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '(
-	 (sh . t)
-	 (python . t)
-	 (R . t)
-	 (ruby . t)
-	 (ditaa . t)
-	 (dot . t)
-	 (octave . t)
-	 (sqlite . t)
-	 (sql . t)
-	 (perl . t)
-	 (plantuml . t)
-	 ;;(graphviz . t)
-	 ))
+     (sh . t)
+     (python . t)
+     (R . t)
+     (ruby . t)
+     (ditaa . t)
+     (dot . t)
+     (octave . t)
+     (sqlite . t)
+     (sql . t)
+     (perl . t)
+     (plantuml . t)
+     ;;(graphviz . t)
+     ))
   ;; (load "~/.emacs.d/elisp/uml/ob-plantuml.el")
   (setq org-plantuml-jar-path (expand-file-name "~/.emacs.d/elisp/uml/plantuml.jar"))
   (setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/elisp/uml/ditaa.jar"))
 
+  ;; org to pdf with texi2dvi
+  (setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
+
   )
 
 ;; ;; test yasnippet auto-complete
-;; (add-to-list 'load-path "~/.emacs.d/yasnippet")
 ;; (add-to-list 'load-path "~/.emacs.d/autocomplete/")
 ;; (require 'yasnippet)
 ;; (require 'auto-complete)
@@ -172,32 +185,6 @@
 ;; (add-to-list 'ac-sources 'ac-source-yasnippet)
 
 
-;; (add-hook 'org-mode-hook
-;;           (let ((original-command (lookup-key org-mode-map [tab])))
-;;             `(lambda ()
-;;                (setq yas/fallback-behavior
-;;                      '(apply ,original-command))
-;;                (local-set-key [tab] 'yas/expand))))
-
-
-
-;; (ac-set-trigger-key "TAB")
-;; (ac-set-trigger-key "<tab>")
-
-;; (add-hook 'c-mode-common-hook '(lambda ()
-;;         (add-to-list 'ac-omni-completion-sources
-;;                      (cons "\\." '(ac-source-semantic)))
-;;         (add-to-list 'ac-omni-completion-sources
-;;                      (cons "->" '(ac-source-semantic)))
-;;         (setq ac-sources '(ac-source-semantic ac-source-yasnippet))
-;; ))
-;; (add-hook 'c++-mode-common-hook '(lambda ()
-;;         (add-to-list 'ac-omni-completion-sources
-;;                      (cons "\\." '(ac-source-semantic)))
-;;         (add-to-list 'ac-omni-completion-sources
-;;                      (cons "->" '(ac-source-semantic)))
-;;         (setq ac-sources '(ac-source-semantic ac-source-yasnippet))
-;; ))
 
 ;;show all in org-mode
 (global-set-key (kbd "C-. C-a") 'show-all)
@@ -222,9 +209,9 @@
      (interactive)
      (when (eq window-system 'x)
        (set-frame-parameter
-		nil 'fullscreen
-		(when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
-										;(toggle-fullscreen)
+	nil 'fullscreen
+	(when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
+					;(toggle-fullscreen)
    (global-set-key [f11] 'toggle-fullscreen)
    (display-time-mode t)
    )
@@ -234,10 +221,6 @@
   )
 
 
-;; don't show the scroll
-(scroll-bar-mode -1)
-;; (menu-bar-mode -1)
-(tool-bar-mode -1)
 
 ;; open pdf in org with evince
 (eval-after-load "org"
@@ -249,8 +232,6 @@
      ;;   (add-to-list 'org-file-apps '("\\.txt\\'" . "notepad.exe %s") t))
      ;; Change .pdf association directly within the alist
      (setcdr (assoc "\\.pdf\\'" org-file-apps) "evince %s")))
-;; org to pdf with texi2dvi
-(setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %s"))
 
 
 
@@ -276,7 +257,7 @@
 ;;octave m files
 (autoload 'octave-mode "octave-mod" nil t)
 (setq auto-mode-alist
-	  (cons '("\\.m$" . octave-mode) auto-mode-alist))
+      (cons '("\\.m$" . octave-mode) auto-mode-alist))
 
 ;;cakephp
 (add-to-list 'auto-mode-alist '("\\.ctp$" . nxhtml-mumamo-mode)) 
