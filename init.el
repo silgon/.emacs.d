@@ -16,17 +16,9 @@
 (transient-mark-mode -1)
 
 ;; unset keys
-;; (global-unset-key "\C-.")
-(global-unset-key (kbd "C-."))
 (define-key (current-global-map) (kbd "C-.") nil)
-(define-key (current-global-map) [remap flyspell-auto-correct-word] nil)
-
-;;(define-key (current-local-map) (kbd "C-.") nil)
-
-;; flyspell-auto-correct-word function
-;; (defun flyspell-auto-correct-word-disable() (define-key (current-local-map) (kbd "C-.") nil))
-;; (add-hook 'flyspell-mode-hook 'flyspell-auto-correct-word-disable)
-;; (define-key (current-global-map) [remap flyspell-auto-correct-word] nil)
+(eval-after-load "flyspell"
+  '(define-key flyspell-mode-map (kbd "C-.") nil))
 
 ;; miscellaneous
 (global-set-key "\C-xc" 'calendar)
@@ -133,6 +125,7 @@
      (sqlite . t)
      (sql . t)
      (perl . t)
+     (latex . t)
      (plantuml . t)
      ;;(graphviz . t)
      ))
