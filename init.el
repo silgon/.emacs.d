@@ -17,7 +17,17 @@
 
 ;; unset keys
 ;; (global-unset-key "\C-.")
+(global-unset-key (kbd "C-."))
 (define-key (current-global-map) (kbd "C-.") nil)
+(define-key (current-global-map) [remap flyspell-auto-correct-word] nil)
+
+;;(define-key (current-local-map) (kbd "C-.") nil)
+
+;; flyspell-auto-correct-word function
+;; (defun flyspell-auto-correct-word-disable() (define-key (current-local-map) (kbd "C-.") nil))
+;; (add-hook 'flyspell-mode-hook 'flyspell-auto-correct-word-disable)
+;; (define-key (current-global-map) [remap flyspell-auto-correct-word] nil)
+
 ;; miscellaneous
 (global-set-key "\C-xc" 'calendar)
 (global-set-key "\C-xt" 'eshell)
@@ -51,6 +61,9 @@
 (ido-mode t)
 
 ;; easy spell check
+(setq flyspell-use-meta-tab nil)
+
+
 (global-set-key (kbd "C-x <f8>") 'ispell-change-dictionary)
 (global-set-key (kbd "<f8>") 'ispell-word)
 (global-set-key (kbd "C-S-<f8>") 'flyspell-mode)
@@ -89,8 +102,7 @@
 
   )
 
-(when (and (equal emacs-major-version 24)
-	   (or (equal emacs-minor-version 1) (equal emacs-minor-version 2)))
+(when (equal emacs-major-version 24)
   ;;first
   (eval-after-load "bytecomp"
     '(add-to-list 'byte-compile-not-obsolete-vars
@@ -195,6 +207,8 @@
 
 ;; if X11 or terminal
 (add-to-list 'load-path "~/.emacs.d/themes/")
+(add-to-list 'load-path "~/.emacs.d/color-theme/")
+
 
 (case window-system
   (x 
