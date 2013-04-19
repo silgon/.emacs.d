@@ -256,6 +256,11 @@
 ;;                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 
+;; major modes
+
+;; (add-to-list 'load-path "~/.emacs.d/elisp/uml/")
+;; (require 'plantuml-mode)
+
 ;; default files
 
 ;;ROS
