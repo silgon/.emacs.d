@@ -1,7 +1,6 @@
-;; ;;idle-require
-;; (add-to-list 'load-path "~/.emacs.d/elisp/idle-mode/")
-;; (require 'idle-require)
 ;; (idle-require-mode t)
+
+(add-to-list 'load-path "~/.emacs.d/elisp/")
 
 ;; save desktop
 (desktop-save-mode 1) ;; save my files open
@@ -19,6 +18,8 @@
 (define-key (current-global-map) (kbd "C-.") nil)
 (eval-after-load "flyspell"
   '(define-key flyspell-mode-map (kbd "C-.") nil))
+(eval-after-load "php-mode"
+  '(define-key php-mode-map (kbd "C-.") nil))
 
 ;; miscellaneous
 (global-set-key "\C-xc" 'calendar)
@@ -71,12 +72,22 @@
 
 
 ;; MUMAMO
-(load "~/.emacs.d/nxhtml/autostart.el")
-(setq mumamo-background-colors nil)
+;; (load "~/.emacs.d/nxhtml/autostart.el")
+;; (setq mumamo-background-colors nil)
 
 ;; tabkey2 it seems it's really problematic, I deactivated
 ;;(tabkey2-mode t)
 
+(require 'php-mode)
+
+(add-to-list 'load-path "~/.emacs.d/elisp/multi-web-mode/")
+(require 'multi-web-mode)
+(setq mweb-default-major-mode 'html-mode)
+(setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
+		  (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+		  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
+(setq mweb-filename-extensions '("php" "ctp" "htm" "html" "ctp" "phtml" "php4" "php5"))
+(multi-web-global-mode 1)
 
 ;; obsolete stuff in mumamo
 (when (and (equal emacs-major-version 23)
@@ -268,3 +279,5 @@
 
 ;;cakephp
 (add-to-list 'auto-mode-alist '("\\.ctp$" . nxhtml-mumamo-mode)) 
+
+
