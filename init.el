@@ -78,6 +78,8 @@
 ;; tabkey2 it seems it's really problematic, I deactivated
 ;;(tabkey2-mode t)
 
+
+;; php mode
 (require 'php-mode)
 
 (add-to-list 'load-path "~/.emacs.d/elisp/multi-web-mode/")
@@ -272,7 +274,13 @@
 ;; (add-to-list 'load-path "~/.emacs.d/elisp/uml/")
 ;; (require 'plantuml-mode)
 
+;; cmake mode
+(require 'cmake-mode)
+
+
 ;; default files
+(add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode)) ;;cakephp
+
 
 ;;ROS
 (add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode)) ;;cakephp
