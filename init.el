@@ -275,7 +275,7 @@
 ;; default files
 
 ;;ROS
-(add-to-list 'auto-mode-alist '("\\.launch$" . nxml-mumamo-mode)) ;;cakephp
+(add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode)) ;;cakephp
 
 ;;octave m files
 (autoload 'octave-mode "octave-mod" nil t)
