@@ -17,9 +17,9 @@
 ;; unset keys
 (define-key (current-global-map) (kbd "C-.") nil)
 (eval-after-load "flyspell"
-  '(define-key flyspell-mode-map (kbd "C-.") nil))
+	'(define-key flyspell-mode-map (kbd "C-.") nil))
 (eval-after-load "php-mode"
-  '(define-key php-mode-map (kbd "C-.") nil))
+	'(define-key php-mode-map (kbd "C-.") nil))
 
 ;; miscellaneous
 (global-set-key "\C-xc" 'calendar)
@@ -32,11 +32,16 @@
 ;; (menu-bar-mode -1)
 (tool-bar-mode -1)
 
-
 ;;column number
 (column-number-mode t)
 
-;;(setq-default tab-width 4)
+;; indentiation stuff (maybe some variable is missing for other language
+(setq-default indent-line-function 4)
+(setq-default tab-width 4)
+(setq-default c-basic-offset 4)
+(setq-default lisp-indent-offset 4)
+(setq-default sgml-basic-offset 4)
+(setq tab-stop-list (number-sequence 4 200 4))
 
 ;; set goal column enable and other defaults of emacs also
 (put 'set-goal-column 'disabled nil)
@@ -56,20 +61,18 @@
 ;; easy spell check
 (setq flyspell-use-meta-tab nil)
 
-
 (global-set-key (kbd "C-x <f8>") 'ispell-change-dictionary)
 (global-set-key (kbd "<f8>") 'ispell-word)
 (global-set-key (kbd "C-S-<f8>") 'flyspell-mode)
 (global-set-key (kbd "M-S-<f8>") 'flyspell-buffer)
 (global-set-key (kbd "C-<f8>") 'flyspell-check-previous-highlighted-word)
 (defun flyspell-check-next-highlighted-word ()
-  "Custom function to spell check next highlighted word"
-  (interactive)
-  (flyspell-goto-next-error)
-  (ispell-word)
-  )
+	"Custom function to spell check next highlighted word"
+	(interactive)
+	(flyspell-goto-next-error)
+	(ispell-word)
+	)
 (global-set-key (kbd "M-<f8>") 'flyspell-check-next-highlighted-word)
-
 
 ;; MUMAMO
 ;; (load "~/.emacs.d/nxhtml/autostart.el")
@@ -78,101 +81,76 @@
 ;; tabkey2 it seems it's really problematic, I deactivated
 ;;(tabkey2-mode t)
 
-
 ;; php mode
 (require 'php-mode)
 
+;; multi web mode
 (add-to-list 'load-path "~/.emacs.d/elisp/multi-web-mode/")
 (require 'multi-web-mode)
 (setq mweb-default-major-mode 'html-mode)
 (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
-		  (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
-		  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
+					 (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+					 (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
 (setq mweb-filename-extensions '("php" "ctp" "htm" "html" "ctp" "phtml" "php4" "php5"))
 (multi-web-global-mode 1)
 
 ;; obsolete stuff in mumamo
 (when (and (equal emacs-major-version 23)
-           (equal emacs-minor-version 3))
-  (eval-after-load "bytecomp"
-    '(add-to-list 'byte-compile-not-obsolete-vars
-                  'font-lock-beginning-of-syntax-function))
-  ;; tramp-compat.el clobbers this variable!
-  (eval-after-load "tramp-compat"
-    '(add-to-list 'byte-compile-not-obsolete-vars
-                  'font-lock-beginning-of-syntax-function))
-  ;; org to pdf with texi2dvi
-  (setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %s"))
-
-
-  )
+		  (equal emacs-minor-version 3))
+	(eval-after-load "bytecomp"
+		'(add-to-list 'byte-compile-not-obsolete-vars
+			 'font-lock-beginning-of-syntax-function))
+	;; tramp-compat.el clobbers this variable!
+	(eval-after-load "tramp-compat"
+		'(add-to-list 'byte-compile-not-obsolete-vars
+			 'font-lock-beginning-of-syntax-function))
+	;; org to pdf with texi2dvi
+	(setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %s"))
+	)
 
 (when (equal emacs-major-version 24)
-  ;;first
-  (eval-after-load "bytecomp"
-    '(add-to-list 'byte-compile-not-obsolete-vars
-                  'font-lock-beginning-of-syntax-function))
-  ;; tramp-compat.el clobbers this variable!
-  (eval-after-load "tramp-compat"
-    '(add-to-list 'byte-compile-not-obsolete-vars
-                  'font-lock-beginning-of-syntax-function))
-  ;;second
-  (eval-after-load "bytecomp"
-    '(add-to-list 'byte-compile-not-obsolete-vars
-                  'font-lock-syntactic-keywords))
-  ;; tramp-compat.el clobbers this variable!
-  (eval-after-load "tramp-compat"
-    '(add-to-list 'byte-compile-not-obsolete-vars
-                  'font-lock-syntactic-keywords))
-  ;; if emacs 24 then we can use the great org-babel mode!
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '(
-     (sh . t)
-     (python . t)
-     (R . t)
-     (ruby . t)
-     (ditaa . t)
-     (dot . t)
-     (octave . t)
-     (sqlite . t)
-     (sql . t)
-     (perl . t)
-     (latex . t)
-     (plantuml . t)
-     ;;(graphviz . t)
-     ))
-  ;; (load "~/.emacs.d/elisp/uml/ob-plantuml.el")
-  (setq org-plantuml-jar-path (expand-file-name "~/.emacs.d/elisp/uml/plantuml.jar"))
-  (setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/elisp/uml/ditaa.jar"))
+	;;first
+	(eval-after-load "bytecomp"
+		'(add-to-list 'byte-compile-not-obsolete-vars
+			 'font-lock-beginning-of-syntax-function))
+	;; tramp-compat.el clobbers this variable!
+	(eval-after-load "tramp-compat"
+		'(add-to-list 'byte-compile-not-obsolete-vars
+			 'font-lock-beginning-of-syntax-function))
+	;;second
+	(eval-after-load "bytecomp"
+		'(add-to-list 'byte-compile-not-obsolete-vars
+			 'font-lock-syntactic-keywords))
+	;; tramp-compat.el clobbers this variable!
+	(eval-after-load "tramp-compat"
+		'(add-to-list 'byte-compile-not-obsolete-vars
+			 'font-lock-syntactic-keywords))
+	;; if emacs 24 then we can use the great org-babel mode!
+	(org-babel-do-load-languages
+		'org-babel-load-languages
+		'(
+			 (sh . t)
+			 (python . t)
+			 (R . t)
+			 (ruby . t)
+			 (ditaa . t)
+			 (dot . t)
+			 (octave . t)
+			 (sqlite . t)
+			 (sql . t)
+			 (perl . t)
+			 (latex . t)
+			 (plantuml . t)
+			 ;;(graphviz . t)
+			 ))
+	;; (load "~/.emacs.d/elisp/uml/ob-plantuml.el")
+	(setq org-plantuml-jar-path (expand-file-name "~/.emacs.d/elisp/uml/plantuml.jar"))
+	(setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/elisp/uml/ditaa.jar"))
 
-  ;; org to pdf with texi2dvi
-  (setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
+	;; org to pdf with texi2dvi
+	(setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
 
-  )
-
-;; ;; test yasnippet auto-complete
-;; (add-to-list 'load-path "~/.emacs.d/autocomplete/")
-;; (require 'yasnippet)
-;; (require 'auto-complete)
-;; ;; yasnippet
-;; (yas-global-mode 1)
-;; ;; autocomplete
-;; (require 'auto-complete-config)
-;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/autocomplete/ac-dict")
-;; (set-default 'ac-sources
-;;              '(ac-source-abbrev
-;;                ac-source-dictionary
-;;                ac-source-yasnippet
-;;                ac-source-words-in-buffer
-;;                ac-source-words-in-same-mode-buffers
-;;                ac-source-semantic))
-;; (ac-config-default)
-;; (dolist (m '(c-mode c++-mode java-mode))
-;;   (add-to-list 'ac-modes m))
-
-;; (global-auto-complete-mode t)
-
+	)
 
 ;;yasnippet
 (add-to-list 'load-path "~/.emacs.d/yasnippet")
@@ -186,8 +164,6 @@
 (global-set-key (kbd "C-x C-y") 'yas-global-mode)
 (setq ac-source-yasnippet nil)
 
-
-
 ;;autocomplete
 (add-to-list 'load-path "~/.emacs.d/autocomplete/")
 (require 'auto-complete-config)
@@ -199,61 +175,50 @@
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
 
-;; snippets in the auto-completetion
-;; (add-to-list 'ac-sources 'ac-source-yasnippet)
-
-
-
 ;;show all in org-mode
 (global-set-key (kbd "C-. C-a") 'show-all)
 (global-set-key (kbd "C-. l") 'visual-line-mode)
 (global-set-key (kbd "C-. C-b m") 'menu-bar-mode)
 (global-set-key (kbd "C-. C-b t") 'tool-bar-mode)
 
-
 ;; if X11 or terminal
 (add-to-list 'load-path "~/.emacs.d/themes/")
 (add-to-list 'load-path "~/.emacs.d/color-theme/")
 
-
 (case window-system
-  (x 
-   ;; color theme
-   (require 'color-theme)
-   (require 'color-theme-mycomidia)
-   (color-theme-initialize)
-   (color-theme-mycomidia)
-   ;; fullscreen
-   (defun toggle-fullscreen ()
-     "Toggle full screen on X11"
-     (interactive)
-     (when (eq window-system 'x)
-       (set-frame-parameter
-	nil 'fullscreen
-	(when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
-					;(toggle-fullscreen)
-   (global-set-key [f11] 'toggle-fullscreen)
-   (display-time-mode t)
-   )
-  (otherwise 
-   (setq mumamo-background-colors nil)
-   )
-  )
-
-
+	(x 
+		;; color theme
+		(require 'color-theme)
+		(require 'color-theme-mycomidia)
+		(color-theme-initialize)
+		(color-theme-mycomidia)
+		;; fullscreen
+		(defun toggle-fullscreen ()
+			"Toggle full screen on X11"
+			(interactive)
+			(when (eq window-system 'x)
+				(set-frame-parameter
+					nil 'fullscreen
+					(when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
+										;(toggle-fullscreen)
+		(global-set-key [f11] 'toggle-fullscreen)
+		(display-time-mode t)
+		)
+	(otherwise 
+		(setq mumamo-background-colors nil)
+		)
+	)
 
 ;; open pdf in org with evince
 (eval-after-load "org"
-  '(progn
-     ;; .txt files aren't in the list initially, but in case that changes
-     ;; in a future version of org, use if to avoid errors
-     ;; (if (assoc "\\.txt\\'" org-file-apps)
-     ;;     (setcdr (assoc "\\.txt\\'" org-file-apps) "notepad.exe %s")
-     ;;   (add-to-list 'org-file-apps '("\\.txt\\'" . "notepad.exe %s") t))
-     ;; Change .pdf association directly within the alist
-     (setcdr (assoc "\\.pdf\\'" org-file-apps) "evince %s")))
-
-
+	'(progn
+		 ;; .txt files aren't in the list initially, but in case that changes
+		 ;; in a future version of org, use if to avoid errors
+		 ;; (if (assoc "\\.txt\\'" org-file-apps)
+		 ;;     (setcdr (assoc "\\.txt\\'" org-file-apps) "notepad.exe %s")
+		 ;;   (add-to-list 'org-file-apps '("\\.txt\\'" . "notepad.exe %s") t))
+		 ;; Change .pdf association directly within the alist
+		 (setcdr (assoc "\\.pdf\\'" org-file-apps) "evince %s")))
 
 ;;(setq TeX-PDF-mode t)
 (setq preview-image-type 'png)
@@ -277,20 +242,17 @@
 ;; cmake mode
 (require 'cmake-mode)
 
-
 ;; default files
 (add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode)) ;;cakephp
 
-
 ;;ROS
-(add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode)) ;;cakephp
+(add-to-list 'auto-mode-alist '("\\.launch$" . nxml-mode)) ;;cakephp
 
 ;;octave m files
 (autoload 'octave-mode "octave-mod" nil t)
 (setq auto-mode-alist
-      (cons '("\\.m$" . octave-mode) auto-mode-alist))
+	(cons '("\\.m$" . octave-mode) auto-mode-alist))
 
 ;;cakephp
-(add-to-list 'auto-mode-alist '("\\.ctp$" . nxhtml-mumamo-mode)) 
-
+(add-to-list 'auto-mode-alist '("\\.ctp$" . php-mode)) 
 
