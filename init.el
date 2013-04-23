@@ -41,6 +41,7 @@
 (setq-default c-basic-offset 4)
 (setq-default lisp-indent-offset 4)
 (setq-default sgml-basic-offset 4)
+(setq-default nxml-child-indent 4)
 (setq tab-stop-list (number-sequence 4 200 4))
 
 ;; set goal column enable and other defaults of emacs also
@@ -87,7 +88,7 @@
 ;; multi web mode
 (add-to-list 'load-path "~/.emacs.d/elisp/multi-web-mode/")
 (require 'multi-web-mode)
-(setq mweb-default-major-mode 'html-mode)
+(setq mweb-default-major-mode 'nxml-mode)
 (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
 					 (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
 					 (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
@@ -255,4 +256,6 @@
 
 ;;cakephp
 (add-to-list 'auto-mode-alist '("\\.ctp$" . php-mode)) 
+;; html
+(add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode)) 
 
