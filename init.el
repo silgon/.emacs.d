@@ -88,7 +88,7 @@
 ;; multi web mode
 (add-to-list 'load-path "~/.emacs.d/elisp/multi-web-mode/")
 (require 'multi-web-mode)
-(setq mweb-default-major-mode 'nxml-mode)
+(setq mweb-default-major-mode 'html-mode)
 (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
 					 (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
 					 (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
@@ -234,6 +234,10 @@
 ;;                ("\\paragraph{%s}" . "\\paragraph*{%s}")
 ;;                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
+
+;; aliases
+(defalias 'html-mode 'nxml-mode)
+(defalias 'xml-mode 'nxml-mode)
 
 ;; major modes
 
