@@ -27,6 +27,32 @@
 (global-set-key (kbd "C-. C-c") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-. C-l") 'global-linum-mode) ;; number of line
 
+
+;; ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer) ;; Use Ibuffer for Buffer List
+
+(setq ibuffer-saved-filter-groups
+	'(("home"
+		  ("emacs-config" (or (filename . ".emacs.d")
+							  (filename . "emacs-config")))
+		  ("martinowen.net" (filename . "martinowen.net"))
+		  ("Org" (or (mode . org-mode)
+					 (filename . "OrgMode")))
+		  ("code" (filename . "code"))
+		  ("pynoz" (filename . "www/pynoz"))
+		  ("oislas" (filename . "www/oislas"))
+		  ("android" (filename . "programming/android"))
+		  ;; ("Web Dev" (or (mode . html-mode)
+		  ;; 		(mode . css-mode)))
+		  ;; ("Subversion" (name . "\*svn"))
+		  ;; ("Magit" (name . "\*magit"))
+		  ;; ("ERC" (mode . erc-mode))
+		  ("Help" (or (name . "\*Help\*")
+					  (name . "\*Apropos\*")
+					  (name . "\*info\*"))))))
+(add-hook 'ibuffer-mode-hook 
+	'(lambda ()
+	     (ibuffer-switch-to-saved-filter-groups "home")))
 ;; don't show the scroll and others
 (scroll-bar-mode -1)
 ;; (menu-bar-mode -1)
