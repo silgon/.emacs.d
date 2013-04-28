@@ -101,6 +101,16 @@
 	)
 (global-set-key (kbd "M-<f8>") 'flyspell-check-next-highlighted-word)
 
+;; android-mode
+(add-to-list 'load-path "~/.emacs.d/elisp/android")
+(require 'android-mode)
+(global-set-key (kbd "C-<f12>") 'android-ant-debug)
+;; (setq android-mode-sdk-dir "~/work/android/android")
+;; (add-hook 'gud-mode-hook
+;; 	(lambda ()
+;; 		(add-to-list 'gud-jdb-classpath "android-sdk/platforms/android-10/android.jar")
+;; 		))
+
 ;; MUMAMO
 (load "~/.emacs.d/nxhtml/autostart.el")
 (setq mumamo-background-colors nil)
