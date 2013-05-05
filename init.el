@@ -107,12 +107,15 @@
 (add-to-list 'load-path "~/.emacs.d/elisp/android")
 (require 'android-mode)
 (global-set-key (kbd "C-<f12>") 'android-ant-debug)
-;; (setq android-mode-sdk-dir "~/work/android/android")
-;; (add-hook 'gud-mode-hook
-;; 	(lambda ()
-;; 		(add-to-list 'gud-jdb-classpath "android-sdk/platforms/android-10/android.jar")
-;; 		))
 
+;; CEDET
+;; (load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
+
+(setq android-mode-sdk-dir "~/programming/android/")
+(add-hook 'gud-mode-hook
+	(lambda ()
+		(add-to-list 'gud-jdb-classpath "~/android-sdk/platforms/android-17/android.jar")
+		))
 ;; MUMAMO
 (load "~/.emacs.d/nxhtml/autostart.el")
 (setq mumamo-background-colors nil)
@@ -224,6 +227,19 @@ or nil if not found."
 ;; keybinding to deactivate yas mode (sometimes it's useful)
 (global-set-key (kbd "C-x y") 'yas/minor-mode) 
 (global-set-key (kbd "C-x C-y") 'yas-global-mode)
+(add-hook 'eshell-mode-hook
+	(lambda ()
+		(setq yas/minor-mode nil)
+		))
+(add-hook 'inferior-octave-mode-hook
+	(lambda ()
+		(setq yas/minor-mode nil)
+		))
+(add-hook 'inferior-python-mode-hook
+	(lambda ()
+		(setq yas/minor-mode nil)
+		))
+
 (setq ac-source-yasnippet nil)
 
 ;;autocomplete
