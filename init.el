@@ -1,3 +1,5 @@
+;; emacs server
+(server-start)
 ;; (idle-require-mode t)
 
 (add-to-list 'load-path "~/.emacs.d/elisp/")
