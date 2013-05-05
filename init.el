@@ -28,7 +28,16 @@
 (global-set-key "\C-xt" 'eshell)
 (global-set-key (kbd "C-. C-c") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-. C-l") 'global-linum-mode) ;; number of line
+(global-set-key (kbd "C-. C-i") 'irc)
 
+;; irc
+(setq rcirc-server-alist
+      '(("irc.freenode.net"
+         :port 6665
+         ;; :connect-function open-tls-stream
+         :channels ("#emacs")
+			))
+	)
 
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer) ;; Use Ibuffer for Buffer List
