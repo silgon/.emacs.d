@@ -340,7 +340,7 @@ or nil if not found."
 (add-to-list 'auto-mode-alist '("\\.launch$" . nxml-mode)) ;;cakephp
 
 ;;octave m files
-(autoload 'octave-mode "octave-mode" nil t)
+(autoload 'octave-mode "octave-mod" nil t) ;; ATTENION: octave-mod without the E is alright
 (setq-default octave-comment-start "% ")
 (setq auto-mode-alist
 	(cons '("\\.m$" . octave-mode) auto-mode-alist))
