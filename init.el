@@ -1,7 +1,14 @@
 ;; emacs server
 (server-start)
-;; (idle-require-mode t)
 
+;; unset keys
+(define-key (current-global-map) (kbd "C-.") nil)
+(eval-after-load "flyspell"
+	'(define-key flyspell-mode-map (kbd "C-.") nil))
+(eval-after-load "php-mode"
+	'(define-key php-mode-map (kbd "C-.") nil))
+
+;; my default path for files
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
 ;; save desktop
@@ -16,19 +23,37 @@
 ;; no transient mark
 (transient-mark-mode -1)
 
-;; unset keys
-(define-key (current-global-map) (kbd "C-.") nil)
-(eval-after-load "flyspell"
-	'(define-key flyspell-mode-map (kbd "C-.") nil))
-(eval-after-load "php-mode"
-	'(define-key php-mode-map (kbd "C-.") nil))
-
 ;; miscellaneous
 (global-set-key "\C-xc" 'calendar)
 (global-set-key "\C-xt" 'eshell)
 (global-set-key (kbd "C-. C-c") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-. C-l") 'global-linum-mode) ;; number of line
 (global-set-key (kbd "C-. C-i") 'irc)
+
+;; don't show the scroll and others
+(scroll-bar-mode -1)
+;; (menu-bar-mode -1)
+(tool-bar-mode -1)
+;;column number
+(column-number-mode t)
+
+
+;; toggle visual line and logical line
+(defun toggle-line-move-visual ()
+	"Toggle behavior of C-n and C-p, by visual line vs logical line."
+	(interactive)
+	(if line-move-visual
+		(progn 
+			(setq line-move-visual nil)
+			(message "line-move-visual deactivated")
+			)
+		(progn 
+			(setq line-move-visual t)
+			(message "line-move-visual enabled")
+			)
+		)
+	)
+(global-set-key (kbd "C-. C-v") 'toggle-line-move-visual)
 
 ;; irc
 (setq rcirc-server-alist
@@ -64,13 +89,6 @@
 (add-hook 'ibuffer-mode-hook 
 	'(lambda ()
 	     (ibuffer-switch-to-saved-filter-groups "home")))
-;; don't show the scroll and others
-(scroll-bar-mode -1)
-;; (menu-bar-mode -1)
-(tool-bar-mode -1)
-
-;;column number
-(column-number-mode t)
 
 ;; indentiation stuff (maybe some variable is missing for other language
 (setq-default indent-line-function 4)
@@ -98,7 +116,6 @@
 
 ;; easy spell check
 (setq flyspell-use-meta-tab nil)
-
 (global-set-key (kbd "C-x <f8>") 'ispell-change-dictionary)
 (global-set-key (kbd "<f8>") 'ispell-word)
 (global-set-key (kbd "C-S-<f8>") 'flyspell-mode)
@@ -150,7 +167,6 @@ or nil if not found."
 	(when my-tags-file
 		(message "Loading tags file: %s" my-tags-file)
 		(visit-tags-table my-tags-file)))
-
 
 ;; tabkey2 it seems it's really problematic, I deactivated
 ;;(tabkey2-mode t)
@@ -348,19 +364,3 @@ or nil if not found."
 (add-to-list 'auto-mode-alist '("\\.ctp$" . nxhtml-mumamo-mode)) 
 ;; html
 (add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode)) 
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(send-mail-function (quote smtpmail-send-it))
- '(spice-output-local "Gnucap")
- '(spice-simulator "Gnucap")
- '(spice-waveform-viewer "Gwave"))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
