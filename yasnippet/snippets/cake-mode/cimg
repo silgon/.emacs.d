@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: cakeimg
+# key: cimg
+# --
+echo \$this->Html->image(${1:"path.jpg"}, array("alt" => "${2:description}"));
