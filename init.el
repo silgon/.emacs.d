@@ -142,14 +142,6 @@
 	(lambda ()
 		(add-to-list 'gud-jdb-classpath "~/android-sdk/platforms/android-17/android.jar")
 		))
-;; MUMAMO
-(load "~/.emacs.d/nxhtml/autostart.el")
-(setq mumamo-background-colors nil)
-;;cakephp
-(add-to-list 'auto-mode-alist '("\\.ctp$" . nxhtml-mumamo-mode)) 
-;; html
-(add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode)) 
-
 
 ;; etags
 (defun find-file-upwards (file-to-find)
@@ -176,8 +168,35 @@ or nil if not found."
 ;; tabkey2 it seems it's really problematic, I deactivated
 ;;(tabkey2-mode t)
 
-;; ;; php mode
-;; (require 'php-mode)
+;; ;; MUMAMO
+;; (load "~/.emacs.d/nxhtml/autostart.el")
+;; (setq mumamo-background-colors nil)
+;; ;;cakephp
+;; (add-to-list 'auto-mode-alist '("\\.ctp$" . nxhtml-mumamo-mode)) 
+;; ;; html
+;; (add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode)) 
+
+(add-to-list 'load-path "~/.emacs.d/elisp/web-mode/")
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ctp?\\'" . web-mode))
+
+(defun web-mode-hook ()
+  "Hooks for Web mode."
+  ;; (setq web-mode-markup-indent-offset 2)
+)
+(add-hook 'web-mode-hook  'web-mode-hook)
+(defun yas-web-mode-fix ()
+  (web-mode-buffer-refresh)
+  (indent-for-tab-command))
+(setq yas/after-exit-snippet-hook 'yas-web-mode-fix)
 
 ;; ;; multi web mode
 ;; (add-to-list 'load-path "~/.emacs.d/elisp/multi-web-mode/")
@@ -354,11 +373,14 @@ or nil if not found."
 ;; (add-to-list 'load-path "~/.emacs.d/elisp/uml/")
 ;; (require 'plantuml-mode)
 
+;; php mode
+(require 'php-mode)
+
 ;; cmake mode
 (require 'cmake-mode)
 
 ;; default files
-(add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode)) ;;cakephp
+(add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode)) ;;cmake
 
 ;;ROS
 (add-to-list 'auto-mode-alist '("\\.launch$" . nxml-mode)) ;;cakephp
