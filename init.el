@@ -145,6 +145,11 @@
 ;; MUMAMO
 (load "~/.emacs.d/nxhtml/autostart.el")
 (setq mumamo-background-colors nil)
+;;cakephp
+(add-to-list 'auto-mode-alist '("\\.ctp$" . nxhtml-mumamo-mode)) 
+;; html
+(add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode)) 
+
 
 ;; etags
 (defun find-file-upwards (file-to-find)
@@ -215,6 +220,9 @@ or nil if not found."
 	(eval-after-load "tramp-compat"
 		'(add-to-list 'byte-compile-not-obsolete-vars
 			 'font-lock-syntactic-keywords))
+	(eval-after-load "mumamo"
+		'(setq mumamo-per-buffer-local-vars
+			 (delq 'buffer-file-name mumamo-per-buffer-local-vars)))
 	;; if emacs 24 then we can use the great org-babel mode!
 	(org-babel-do-load-languages
 		'org-babel-load-languages
@@ -360,7 +368,3 @@ or nil if not found."
 (setq auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist))
 (setq-default octave-comment-start "% ")
 
-;;cakephp
-(add-to-list 'auto-mode-alist '("\\.ctp$" . nxhtml-mumamo-mode)) 
-;; html
-(add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode)) 
