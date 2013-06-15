@@ -17,6 +17,11 @@
 ;; dead-keys
 (require 'iso-transl)
 
+;; auctex
+;; for this to run, you'll need the installation in root (I'll try to do it later in the git repository)
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
+
 ;; show parent
 (show-paren-mode t)
 
@@ -310,6 +315,20 @@ or nil if not found."
 (global-set-key (kbd "C-. l") 'visual-line-mode)
 (global-set-key (kbd "C-. C-b m") 'menu-bar-mode)
 (global-set-key (kbd "C-. C-b t") 'tool-bar-mode)
+
+;; reftex in org-mode
+(defun org-mode-reftex-setup ()
+  (load-library "reftex")
+  (and (buffer-file-name) (file-exists-p (buffer-file-name))
+       (progn
+     ;enable auto-revert-mode to update reftex when bibtex file changes on disk
+         (global-auto-revert-mode t)
+         (reftex-parse-all)
+     ))
+  (define-key org-mode-map (kbd "C-c r") 'reftex-citation)
+  )
+
+(add-hook 'org-mode-hook 'org-mode-reftex-setup)
 
 ;; if X11 or terminal
 (add-to-list 'load-path "~/.emacs.d/themes/")
