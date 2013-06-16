@@ -35,6 +35,11 @@
 (global-set-key (kbd "C-. C-l") 'global-linum-mode) ;; number of line
 (global-set-key (kbd "C-. C-i") 'irc)
 
+(global-set-key (kbd "s-r") 'shrink-window-horizontally)
+(global-set-key (kbd "s-n") 'enlarge-window-horizontally)
+(global-set-key (kbd "s-t") 'shrink-window)
+(global-set-key (kbd "s-c") 'enlarge-window)
+
 ;; don't show the scroll and others
 (scroll-bar-mode -1)
 ;; (menu-bar-mode -1)
