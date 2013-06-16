@@ -229,7 +229,11 @@ or nil if not found."
 		'(add-to-list 'byte-compile-not-obsolete-vars
 			 'font-lock-beginning-of-syntax-function))
 	;; org to pdf with texi2dvi
-	(setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %s"))
+
+	;; using the dirty one, just for now, because of the gnuplot eps files
+	;; (setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %s"))
+	(setq org-latex-to-pdf-process '("texi2dvi --pdf --verbose --batch %s"))
+
 	)
 
 (when (equal emacs-major-version 24)
@@ -275,7 +279,8 @@ or nil if not found."
 	(setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/elisp/uml/ditaa.jar"))
 
 	;; org to pdf with texi2dvi
-	(setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
+	;; (setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
+	(setq org-latex-to-pdf-process '("texi2dvi --pdf --verbose --batch %f"))
 
 	)
 
