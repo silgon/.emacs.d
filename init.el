@@ -35,10 +35,10 @@
 (global-set-key (kbd "C-. C-l") 'global-linum-mode) ;; number of line
 (global-set-key (kbd "C-. C-i") 'irc)
 
-(global-set-key (kbd "s-r") 'shrink-window-horizontally)
-(global-set-key (kbd "s-n") 'enlarge-window-horizontally)
-(global-set-key (kbd "s-t") 'shrink-window)
-(global-set-key (kbd "s-c") 'enlarge-window)
+(global-set-key (kbd "s-S-r") 'shrink-window-horizontally)
+(global-set-key (kbd "s-S-n") 'enlarge-window-horizontally)
+(global-set-key (kbd "s-S-t") 'shrink-window)
+(global-set-key (kbd "s-S-c") 'enlarge-window)
 
 ;; don't show the scroll and others
 (scroll-bar-mode -1)
