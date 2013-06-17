@@ -326,18 +326,6 @@ or nil if not found."
 (global-set-key (kbd "C-. C-b m") 'menu-bar-mode)
 (global-set-key (kbd "C-. C-b t") 'tool-bar-mode)
 
-;; types in org-mode
-(add-to-list 'org-export-latex-classes
-             '("report"
-               "\\documentclass{report}"
-               ;; ("\\part{%s}" . "\\part*{%s}")
-               ("\\chapter{%s}" . "\\chapter*{%s}")
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
-             )
-
-
 ;; reftex in org-mode
 (defun org-mode-reftex-setup ()
   (load-library "reftex")
@@ -349,8 +337,21 @@ or nil if not found."
      ))
   (define-key org-mode-map (kbd "C-c r") 'reftex-citation)
   )
-
 (add-hook 'org-mode-hook 'org-mode-reftex-setup)
+
+(require 'org-latex)
+(unless (boundp 'org-export-latex-classes)
+  (setq org-export-latex-classes nil))
+	;; types in org-mode
+	(add-to-list 'org-export-latex-classes
+		'("report"
+			 "\\documentclass{report}"
+			 ;; ("\\part{%s}" . "\\part*{%s}")
+			 ("\\chapter{%s}" . "\\chapter*{%s}")
+			 ("\\section{%s}" . "\\section*{%s}")
+			 ("\\subsection{%s}" . "\\subsection*{%s}")
+			 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
+		)
 
 ;; if X11 or terminal
 (add-to-list 'load-path "~/.emacs.d/themes/")
