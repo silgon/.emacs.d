@@ -231,8 +231,8 @@ or nil if not found."
 	;; org to pdf with texi2dvi
 
 	;; using the dirty one, just for now, because of the gnuplot eps files
-	;; (setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %s"))
-	(setq org-latex-to-pdf-process '("texi2dvi --pdf --verbose --batch %s"))
+	(setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %s"))
+	;; (setq org-latex-to-pdf-process '("texi2dvi --pdf --verbose --batch %s"))
 
 	)
 
@@ -279,8 +279,8 @@ or nil if not found."
 	(setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/elisp/uml/ditaa.jar"))
 
 	;; org to pdf with texi2dvi
-	;; (setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
-	(setq org-latex-to-pdf-process '("texi2dvi --pdf --verbose --batch %f"))
+	(setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
+	;; (setq org-latex-to-pdf-process '("texi2dvi --pdf --verbose --batch %f"))
 
 	)
 
@@ -325,6 +325,18 @@ or nil if not found."
 (global-set-key (kbd "C-. l") 'visual-line-mode)
 (global-set-key (kbd "C-. C-b m") 'menu-bar-mode)
 (global-set-key (kbd "C-. C-b t") 'tool-bar-mode)
+
+;; types in org-mode
+(add-to-list 'org-export-latex-classes
+             '("report"
+               "\\documentclass{report}"
+               ;; ("\\part{%s}" . "\\part*{%s}")
+               ("\\chapter{%s}" . "\\chapter*{%s}")
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
+             )
+
 
 ;; reftex in org-mode
 (defun org-mode-reftex-setup ()
