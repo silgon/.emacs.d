@@ -341,17 +341,43 @@ or nil if not found."
 
 (require 'org-latex)
 (unless (boundp 'org-export-latex-classes)
-  (setq org-export-latex-classes nil))
-	;; types in org-mode
-	(add-to-list 'org-export-latex-classes
-		'("report"
-			 "\\documentclass{report}"
-			 ;; ("\\part{%s}" . "\\part*{%s}")
-			 ("\\chapter{%s}" . "\\chapter*{%s}")
-			 ("\\section{%s}" . "\\section*{%s}")
-			 ("\\subsection{%s}" . "\\subsection*{%s}")
-			 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
-		)
+	(setq org-export-latex-classes nil))
+;; types in org-mode
+(add-to-list 'org-export-latex-classes
+	'("report"
+		 "\\documentclass{report}"
+		 ;; ("\\part{%s}" . "\\part*{%s}")
+		 ("\\chapter{%s}" . "\\chapter*{%s}")
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
+	)
+(add-to-list 'org-export-latex-classes
+	'("myreport"
+		 "\\documentclass{report}
+\\usepackage[utf8]{inputenc}
+\\usepackage[T1]{fontenc}
+\\usepackage{fixltx2e}
+\\usepackage{graphicx}
+\\usepackage{longtable}
+\\usepackage{float}
+\\usepackage{wrapfig}
+\\usepackage{soul}
+\\usepackage{textcomp}
+\\usepackage{marvosym}
+\\usepackage{amssymb}
+\\usepackage{amsmath}
+\\usepackage{hyperref}
+[NO-DEFAULT-PACKAGES]
+[PACKAGES]
+[EXTRA]
+"	
+		 ;; ("\\part{%s}" . "\\part*{%s}")
+		 ("\\chapter{%s}" . "\\chapter*{%s}")
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
+	)
 
 ;; if X11 or terminal
 (add-to-list 'load-path "~/.emacs.d/themes/")
