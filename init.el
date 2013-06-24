@@ -354,7 +354,7 @@ or nil if not found."
 	)
 (add-to-list 'org-export-latex-classes
 	'("myreport"
-		 "\\documentclass{report}
+		 "\\documentclass{scrreprt}
 \\usepackage[utf8]{inputenc}
 \\usepackage[T1]{fontenc}
 \\usepackage{fixltx2e}
