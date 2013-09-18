@@ -100,6 +100,11 @@
 	'(lambda ()
 	     (ibuffer-switch-to-saved-filter-groups "home")))
 
+;; gpg encryption
+(require 'epa-file)
+(epa-file-enable)
+
+
 ;; indentiation stuff (maybe some variable is missing for other language
 (setq-default indent-line-function 4)
 (setq-default tab-width 4)
