@@ -35,10 +35,10 @@
 (global-set-key (kbd "C-. C-l") 'global-linum-mode) ;; number of line
 (global-set-key (kbd "C-. C-i") 'irc)
 
-(global-set-key (kbd "s-S-r") 'shrink-window-horizontally)
-(global-set-key (kbd "s-S-n") 'enlarge-window-horizontally)
-(global-set-key (kbd "s-S-t") 'shrink-window)
-(global-set-key (kbd "s-S-c") 'enlarge-window)
+(global-set-key (kbd "s-C-r") 'shrink-window-horizontally)
+(global-set-key (kbd "s-C-n") 'enlarge-window-horizontally)
+(global-set-key (kbd "s-C-t") 'shrink-window)
+(global-set-key (kbd "s-C-c") 'enlarge-window)
 
 ;; don't show the scroll and others
 (scroll-bar-mode -1)
@@ -328,6 +328,7 @@ or nil if not found."
 ;;show all in org-mode
 (global-set-key (kbd "C-. C-a") 'show-all)
 (global-set-key (kbd "C-. l") 'visual-line-mode)
+(global-set-key (kbd "C-. t") 'toggle-truncate-lines)
 (global-set-key (kbd "C-. C-b m") 'menu-bar-mode)
 (global-set-key (kbd "C-. C-b t") 'tool-bar-mode)
 
