@@ -422,7 +422,8 @@ or nil if not found."
 		 ;;     (setcdr (assoc "\\.txt\\'" org-file-apps) "notepad.exe %s")
 		 ;;   (add-to-list 'org-file-apps '("\\.txt\\'" . "notepad.exe %s") t))
 		 ;; Change .pdf association directly within the alist
-		 (setcdr (assoc "\\.pdf\\'" org-file-apps) "evince %s")))
+		 ;; (setcdr (assoc "\\.pdf\\'" org-file-apps) "evince %s")))
+		 (setcdr (assoc "\\.pdf\\'" org-file-apps) "okular %s")))
 
 ;;(setq TeX-PDF-mode t)
 (setq preview-image-type 'png)
