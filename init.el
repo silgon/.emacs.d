@@ -13,6 +13,13 @@
 
 ;; save desktop
 (desktop-save-mode 1) ;; save my files open
+;; (require 'my-desktop)
+(load-file "~/.emacs.d/elisp/my-desktop.el")
+(global-set-key (kbd "C-. d s") 'my-desktop-save) ;; save
+(global-set-key (kbd "C-. d l") 'my-desktop-save-and-clear) ;; save and clear
+(global-set-key (kbd "C-. d r") 'my-desktop-read) ;; read
+(global-set-key (kbd "C-. d c") 'my-desktop-change) ;; change
+(global-set-key (kbd "C-. d g") 'my-desktop-name) ;; get name
 
 ;; dead-keys
 (require 'iso-transl)
