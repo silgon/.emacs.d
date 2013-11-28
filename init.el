@@ -20,6 +20,7 @@
 (global-set-key (kbd "C-. d r") 'my-desktop-read) ;; read
 (global-set-key (kbd "C-. d c") 'my-desktop-change) ;; change
 (global-set-key (kbd "C-. d g") 'my-desktop-name) ;; get name
+(global-set-key (kbd "C-. d 0") 'desktop-clear) ;; get name
 
 ;; dead-keys
 (require 'iso-transl)
