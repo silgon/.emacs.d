@@ -12,8 +12,9 @@
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
 ;; save desktop
-(desktop-save-mode 1) ;; save my files open
-;; (require 'my-desktop)
+;; (desktop-save-mode 1) ;; save my files open
+(setq inhibit-startup-message t)
+
 (load-file "~/.emacs.d/elisp/my-desktop.el")
 (global-set-key (kbd "C-. d s") 'my-desktop-save) ;; save
 (global-set-key (kbd "C-. d l") 'my-desktop-save-and-clear) ;; save and clear
