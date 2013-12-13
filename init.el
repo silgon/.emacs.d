@@ -48,6 +48,9 @@
 (global-set-key (kbd "s-C-n") 'enlarge-window-horizontally)
 (global-set-key (kbd "s-C-t") 'shrink-window)
 (global-set-key (kbd "s-C-c") 'enlarge-window)
+;; scroll by one
+(global-set-key (kbd "M-n") (lambda () (interactive) (scroll-up 1)))
+(global-set-key (kbd "M-p") (lambda () (interactive) (scroll-down 1)))
 
 ;; don't show the scroll and others
 (scroll-bar-mode -1)
