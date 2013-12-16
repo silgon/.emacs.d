@@ -59,7 +59,6 @@
 ;;column number
 (column-number-mode t)
 
-
 ;; toggle visual line and logical line
 (defun toggle-line-move-visual ()
 	"Toggle behavior of C-n and C-p, by visual line vs logical line."
@@ -140,6 +139,28 @@
 (setq ido-everywhere t)
 (require 'ido)
 (ido-mode t)
+
+;; tramp open files as sudoer inside emacs
+(require 'tramp)
+;; edit as sudo
+(defun sudo-edit (&optional arg)
+"Edit currently visited file as root.
+With a prefix ARG prompt for a file to visit.
+Will also prompt for a file to visit if current
+buffer is not visiting a file."
+  (interactive "P")
+  (if (or arg (not buffer-file-name))
+      (find-file (concat "/sudo:root@localhost:"
+                         (ido-read-file-name "Find file(as root): ")))
+    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+(global-set-key (kbd "C-x C-g") 'sudo-edit)
+;; advices ido mode to use root with tramp
+(defadvice ido-find-file (after find-file-sudo activate)
+  "Find file as root if necessary."
+  (unless (and buffer-file-name
+               (file-writable-p buffer-file-name))
+    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
 
 ;; easy spell check
 (setq flyspell-use-meta-tab nil)
