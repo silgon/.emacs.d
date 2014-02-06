@@ -119,7 +119,15 @@
 (add-to-list 'load-path "~/.emacs.d/elisp/ecb/")
 (require 'ecb)
 (require 'ecb-autoloads)
-(setq stack-trace-on-error t)
+(setq stack-trace-on-error t) ;; this prevent some error (maybe it's not right to do it)
+(setq ecb-layout-name "left-analyse")
+(setq ecb-tip-of-the-day nil) 
+;;; activate and deactivate ecb
+(global-set-key (kbd "C-. ,") 'ecb-activate)
+(global-set-key (kbd "C-. C-,") 'ecb-deactivate)
+;;; show/hide ecb window
+(global-set-key (kbd "C-. ;") 'ecb-show-ecb-windows)
+(global-set-key (kbd "C-. C-;") 'ecb-hide-ecb-windows)
 
 ;; indentiation stuff (maybe some variable is missing for other language
 (setq-default indent-line-function 4)
@@ -503,3 +511,15 @@ or nil if not found."
 (setq auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist))
 (setq-default octave-comment-start "% ")
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ecb-options-version "2.40"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
