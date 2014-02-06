@@ -115,6 +115,11 @@
 (require 'epa-file)
 (epa-file-enable)
 
+;; ecb
+(add-to-list 'load-path "~/.emacs.d/elisp/ecb/")
+(require 'ecb)
+(require 'ecb-autoloads)
+(setq stack-trace-on-error t)
 
 ;; indentiation stuff (maybe some variable is missing for other language
 (setq-default indent-line-function 4)
