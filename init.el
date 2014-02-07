@@ -128,6 +128,12 @@
 ;;; show/hide ecb window
 (global-set-key (kbd "C-. ;") 'ecb-show-ecb-windows)
 (global-set-key (kbd "C-. C-;") 'ecb-hide-ecb-windows)
+;;; quick navigation between ecb windows
+(global-set-key (kbd "C-. 1") 'ecb-goto-window-edit1)
+(global-set-key (kbd "C-. 2") 'ecb-goto-window-directories)
+(global-set-key (kbd "C-. 3") 'ecb-goto-window-sources)
+(global-set-key (kbd "C-. 4") 'ecb-goto-window-methods)
+(global-set-key (kbd "C-. 5") 'ecb-goto-window-compilation)
 
 ;; indentiation stuff (maybe some variable is missing for other language
 (setq-default indent-line-function 4)
