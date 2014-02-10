@@ -115,6 +115,13 @@
 (require 'epa-file)
 (epa-file-enable)
 
+;; sage mode
+(when (file-exists-p "/usr/bin/sage")
+	(add-to-list 'load-path (expand-file-name "~/.emacs.d/elisp/sage_mode/emacs"))
+	(require 'sage "sage")
+	(setq sage-command "/usr/bin/sage")
+)
+
 ;; ecb
 (add-to-list 'load-path "~/.emacs.d/elisp/ecb/")
 (require 'ecb)
