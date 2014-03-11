@@ -1,0 +1,3 @@
+[submodule "elisp/zotelo"]
+	path = elisp/zotelo
+	url = git@github.com:vitoshka/zotelo.git

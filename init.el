@@ -404,6 +404,12 @@ or nil if not found."
   )
 (add-hook 'org-mode-hook 'org-mode-reftex-setup)
 
+;; zotelo (for zotero)
+(add-to-list 'load-path "~/.emacs.d/elisp/zotelo/")
+(require 'zotelo)
+(add-hook 'TeX-mode-hook 'zotelo-minor-mode)
+(add-hook 'org-mode-hook 'zotelo-minor-mode)
+
 (require 'org-latex)
 (unless (boundp 'org-export-latex-classes)
 	(setq org-export-latex-classes nil))
