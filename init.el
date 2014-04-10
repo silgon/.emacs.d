@@ -37,6 +37,8 @@
 
 ;; org-mode
 (add-to-list 'load-path "~/.emacs.d/elisp/org-mode/lisp")
+(eval-after-load "org"
+  '(require 'ox-md nil t))
 
 ;; markdown-mode
 (add-to-list 'load-path "~/.emacs.d/elisp/markdown-mode")
