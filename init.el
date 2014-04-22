@@ -105,16 +105,23 @@
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer) ;; Use Ibuffer for Buffer List
 
+;; Toggle maximize buffer
+(defun toggle-maximize-buffer () "Toggle Maximize buffer"
+  (interactive)
+  (if (= 1 (length (window-list)))
+      (jump-to-register '_) 
+    (progn
+      (window-configuration-to-register '_)
+      (delete-other-windows))))
+(global-set-key (kbd "C-. C-t") 'toggle-maximize-buffer) ;; get name
+
 (setq ibuffer-saved-filter-groups
 	'(("home"
 		  ("emacs-config" (or (filename . ".emacs.d")
 							  (filename . "emacs-config")))
-		  ("martinowen.net" (filename . "martinowen.net"))
 		  ("Org" (or (mode . org-mode)
 					 (filename . "OrgMode")))
 		  ("code" (filename . "code"))
-		  ("pynoz" (filename . "www/pynoz"))
-		  ("oislas" (filename . "www/oislas"))
 		  ("android" (filename . "programming/android"))
 		  ;; ("Web Dev" (or (mode . html-mode)
 		  ;; 		(mode . css-mode)))
@@ -546,3 +553,9 @@ or nil if not found."
 ;; (autoload 'octave-mode "octave-mod" nil t) ;; ATTENION: octave-mod without the E is alright
 (setq auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist))
 (setq-default octave-comment-start "% ")
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ecb-options-version "2.40"))
