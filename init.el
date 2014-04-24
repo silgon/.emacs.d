@@ -21,8 +21,9 @@
 
 (load-file "~/.emacs.d/elisp/my-desktop.el")
 (global-set-key (kbd "C-. d s") 'my-desktop-save) ;; save
-(global-set-key (kbd "C-. d l") 'my-desktop-save-and-clear) ;; save and clear
+(global-set-key (kbd "C-. d S") 'my-desktop-save-and-clear) ;; save and clear
 (global-set-key (kbd "C-. d r") 'my-desktop-read) ;; read
+(global-set-key (kbd "C-. d D") 'my-desktop-delete) ;; delete
 (global-set-key (kbd "C-. d c") 'my-desktop-change) ;; change
 (global-set-key (kbd "C-. d g") 'my-desktop-name) ;; get name
 (global-set-key (kbd "C-. d 0") 'desktop-clear) ;; get name

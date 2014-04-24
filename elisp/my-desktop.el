@@ -23,6 +23,14 @@
   (desktop-clear)
   (setq desktop-dirname nil))
 
+(defun my-desktop-delete (&optional name)
+  "Delete desktop by name."
+  (interactive)
+  (unless name
+    (setq name (my-desktop-get-session-name "Delete session")))
+  (when name
+    (delete-directory (concat my-desktop-session-dir name) t)))
+
 (defun my-desktop-read (&optional name)
   "Read desktop by name."
   (interactive)
