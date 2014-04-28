@@ -45,7 +45,7 @@
 ;; org-mode and org-reveal
 (add-to-list 'load-path "~/.emacs.d/elisp/org-mode/lisp")
 (add-to-list 'load-path "~/.emacs.d/elisp/org-reveal")
-
+(require 'org-compat)
 (eval-after-load "org"
 	'(progn
 		 (require 'ox-md nil t)
@@ -381,8 +381,9 @@ or nil if not found."
 
 	;; org to pdf with texi2dvi
 	(setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
+	;; for newest org-mode
+	(setq org-latex-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
 	;; (setq org-latex-to-pdf-process '("texi2dvi --pdf --verbose --batch %f"))
-
 	)
 
 ;;yasnippet
@@ -571,4 +572,11 @@ or nil if not found."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ecb-options-version "2.40"))
+ '(ecb-options-version "2.40")
+ '(safe-local-variable-values (quote ((zotero-collection . #("0" 0 1 (name "*ALL*")))))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
