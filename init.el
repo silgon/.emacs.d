@@ -31,15 +31,27 @@
 ;; dead-keys
 (require 'iso-transl)
 
+;; recent files
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+
 ;; auctex
 ;; for this to run, you'll need the installation in root (I'll try to do it later in the git repository)
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
 
-;; org-mode
+;; org-mode and org-reveal
 (add-to-list 'load-path "~/.emacs.d/elisp/org-mode/lisp")
+(add-to-list 'load-path "~/.emacs.d/elisp/org-reveal")
+
 (eval-after-load "org"
-  '(require 'ox-md nil t))
+	'(progn
+		 (require 'ox-md nil t)
+		 (require 'ox-reveal nil t)
+		 ))
+
 
 ;; markdown-mode
 (add-to-list 'load-path "~/.emacs.d/elisp/markdown-mode")

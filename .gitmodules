@@ -7,3 +7,6 @@
 [submodule "elisp/markdown-mode"]
 	path = elisp/markdown-mode
 	url = git://jblevins.org/git/markdown-mode.git
+[submodule "elisp/org-reveal"]
+	path = elisp/org-reveal
+	url = https://github.com/yjwen/org-reveal.git
