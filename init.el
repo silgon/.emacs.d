@@ -279,13 +279,6 @@ or nil if not found."
 ;; tabkey2 it seems it's really problematic, I deactivated
 ;;(tabkey2-mode t)
 
-;; ;; MUMAMO
-;; (load "~/.emacs.d/nxhtml/autostart.el")
-;; (setq mumamo-background-colors nil)
-;; ;;cakephp
-;; (add-to-list 'auto-mode-alist '("\\.ctp$" . nxhtml-mumamo-mode)) 
-;; ;; html
-;; (add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode)) 
 
 (add-to-list 'load-path "~/.emacs.d/elisp/web-mode/")
 (require 'web-mode)
@@ -309,55 +302,17 @@ or nil if not found."
   (indent-for-tab-command))
 (setq yas/after-exit-snippet-hook 'yas-web-mode-fix)
 
-;; ;; multi web mode
-;; (add-to-list 'load-path "~/.emacs.d/elisp/multi-web-mode/")
-;; (require 'multi-web-mode)
-;; (setq mweb-default-major-mode 'html-mode)
-;; (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
-;; 					 (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
-;; 					 (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
-;; (setq mweb-filename-extensions '("php" "ctp" "htm" "html" "ctp" "phtml" "php4" "php5"))
-;; (multi-web-global-mode 1)
 
-;; obsolete stuff in mumamo
 (when (and (equal emacs-major-version 23)
 		  (equal emacs-minor-version 3))
-	(eval-after-load "bytecomp"
-		'(add-to-list 'byte-compile-not-obsolete-vars
-			 'font-lock-beginning-of-syntax-function))
-	;; tramp-compat.el clobbers this variable!
-	(eval-after-load "tramp-compat"
-		'(add-to-list 'byte-compile-not-obsolete-vars
-			 'font-lock-beginning-of-syntax-function))
-	;; org to pdf with texi2dvi
-
-	;; using the dirty one, just for now, because of the gnuplot eps files
+	;; not sure whether this still applies or not
 	(setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %s"))
 	;; (setq org-latex-to-pdf-process '("texi2dvi --pdf --verbose --batch %s"))
 
 	)
 
 (when (equal emacs-major-version 24)
-	;;first
-	(eval-after-load "bytecomp"
-		'(add-to-list 'byte-compile-not-obsolete-vars
-			 'font-lock-beginning-of-syntax-function))
-	;; tramp-compat.el clobbers this variable!
-	(eval-after-load "tramp-compat"
-		'(add-to-list 'byte-compile-not-obsolete-vars
-			 'font-lock-beginning-of-syntax-function))
-	;;second
-	(eval-after-load "bytecomp"
-		'(add-to-list 'byte-compile-not-obsolete-vars
-			 'font-lock-syntactic-keywords))
-	;; tramp-compat.el clobbers this variable!
-	(eval-after-load "tramp-compat"
-		'(add-to-list 'byte-compile-not-obsolete-vars
-			 'font-lock-syntactic-keywords))
-	(eval-after-load "mumamo"
-		'(setq mumamo-per-buffer-local-vars
-			 (delq 'buffer-file-name mumamo-per-buffer-local-vars)))
-	;; if emacs 24 then we can use the great org-babel mode!
+	;; if emacs 24 then we can use the great org-babel mode
 	(org-babel-do-load-languages
 		'org-babel-load-languages
 		'(
@@ -379,11 +334,9 @@ or nil if not found."
 	(setq org-plantuml-jar-path (expand-file-name "~/.emacs.d/elisp/uml/plantuml.jar"))
 	(setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/elisp/uml/ditaa.jar"))
 
-	;; org to pdf with texi2dvi
-	(setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
 	;; for newest org-mode
-	(setq org-latex-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
-	;; (setq org-latex-to-pdf-process '("texi2dvi --pdf --verbose --batch %f"))
+	;; (setq org-latex-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
+	(setq org-latex-pdf-process '("texi2dvi --pdf --verbose --batch %f"))
 	)
 
 ;;yasnippet
@@ -516,17 +469,6 @@ or nil if not found."
 		)
 	)
 
-;; open pdf in org with evince
-(eval-after-load "org"
-	'(progn
-		 ;; .txt files aren't in the list initially, but in case that changes
-		 ;; in a future version of org, use if to avoid errors
-		 ;; (if (assoc "\\.txt\\'" org-file-apps)
-		 ;;     (setcdr (assoc "\\.txt\\'" org-file-apps) "notepad.exe %s")
-		 ;;   (add-to-list 'org-file-apps '("\\.txt\\'" . "notepad.exe %s") t))
-		 ;; Change .pdf association directly within the alist
-		 ;; (setcdr (assoc "\\.pdf\\'" org-file-apps) "evince %s")))
-		 (setcdr (assoc "\\.pdf\\'" org-file-apps) "okular %s")))
 
 ;;(setq TeX-PDF-mode t)
 (setq preview-image-type 'png)
@@ -567,6 +509,7 @@ or nil if not found."
 ;; (autoload 'octave-mode "octave-mod" nil t) ;; ATTENION: octave-mod without the E is alright
 (setq auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist))
 (setq-default octave-comment-start "% ")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
