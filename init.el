@@ -50,6 +50,9 @@
 	'(progn
 		 (require 'ox-md nil t)
 		 (require 'ox-reveal nil t)
+		 (require 'ox-beamer nil t)
+		 ;; open with evince
+		 (setcdr (assoc "\\.pdf\\'" org-file-apps) "evince %s")
 		 ))
 
 
