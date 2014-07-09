@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: ccout 
-# key: ccout
-# --
-std::cout << ${1:"hello world"} << std::endl;

@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: cakeblock
-# key: cblock
-# --
-\$this->start('${1:block}');
-$0
-\$this->end();

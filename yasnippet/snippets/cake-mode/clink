@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: cakelink
-# key: clink
-# --
-echo \$this->Html->link(${1:'title'}, ${2:'url'}, ${3:array(${4:'class' => 'name','id'=>'idname'})})

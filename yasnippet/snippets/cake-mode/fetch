@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: cakefetch
-# key: cfetch
-# --
-\$this->fetch('${1:block}');

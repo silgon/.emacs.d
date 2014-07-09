@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: \begin{environment} ... \end{environment}
-# key: begin
-# --
-
-\begin{frame}
-\frametitle{${2:frametitle}}
-$0
-\end{frame}

@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: chapter
-# key: chaper
-# --
-\chapter{$1}
-$0

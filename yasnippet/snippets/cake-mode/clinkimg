@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: cakelinkimg
-# key: climg
-# --
-echo \$this->Html->link(
-    \$this->Html->image(${1:"path.jpg"}, array("alt" => "${2:description}")),
-    "${3:controller/viewer}",
-    array('escape' => false)
-);
