@@ -10,3 +10,6 @@
 [submodule "elisp/org-reveal"]
 	path = elisp/org-reveal
 	url = https://github.com/yjwen/org-reveal.git
+[submodule "yasnippet"]
+	path = yasnippet
+	url = git@github.com:capitaomorte/yasnippet.git
