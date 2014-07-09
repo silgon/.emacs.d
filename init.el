@@ -5,6 +5,9 @@
 (add-to-list 'default-frame-alist
                        '(font . "DejaVu Sans Mono-11"))
 
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
 ;; unset keys
 (define-key (current-global-map) (kbd "C-.") nil)
 (eval-after-load "flyspell"
@@ -162,25 +165,102 @@
 	(setq sage-command "/usr/bin/sage")
 )
 
-;; ecb
-(add-to-list 'load-path "~/.emacs.d/elisp/ecb/")
-(require 'ecb)
-(require 'ecb-autoloads)
-(setq stack-trace-on-error t) ;; this prevent some error (maybe it's not right to do it)
-(setq ecb-layout-name "left-analyse")
-(setq ecb-tip-of-the-day nil) 
-;;; activate and deactivate ecb
-(global-set-key (kbd "C-. ,") 'ecb-activate)
-(global-set-key (kbd "C-. C-,") 'ecb-deactivate)
-;;; show/hide ecb window
-(global-set-key (kbd "C-. ;") 'ecb-show-ecb-windows)
-(global-set-key (kbd "C-. C-;") 'ecb-hide-ecb-windows)
-;;; quick navigation between ecb windows
-(global-set-key (kbd "C-. 1") 'ecb-goto-window-edit1)
-(global-set-key (kbd "C-. 2") 'ecb-goto-window-directories)
-(global-set-key (kbd "C-. 3") 'ecb-goto-window-sources)
-(global-set-key (kbd "C-. 4") 'ecb-goto-window-methods)
-(global-set-key (kbd "C-. 5") 'ecb-goto-window-compilation)
+;;yasnippet
+(add-to-list 'load-path "~/.emacs.d/yasnippet")
+(require 'yasnippet)
+(yas/global-mode t)
+;; (setq yas/trigger-key (kbd "C-c <tab>"))
+;; (setq yas/trigger-key (kbd "C-c TAB"))
+;; (yas--initialize)
+
+;; keybinding to deactivate yas mode (sometimes it's useful)
+(global-set-key (kbd "C-x y") 'yas/minor-mode) 
+(global-set-key (kbd "C-x C-y") 'yas-global-mode)
+
+;; don't activate in some script languages modes
+(add-hook 'eshell-mode-hook
+	(lambda ()
+		(setq yas/minor-mode nil)
+		))
+(add-hook 'inferior-octave-mode-hook
+	(lambda ()
+		(setq yas/minor-mode nil)
+		))
+(add-hook 'inferior-python-mode-hook
+	(lambda ()
+		(setq yas/minor-mode nil)
+		))
+
+(setq ac-source-yasnippet nil)
+
+;; Autocomplete
+(add-to-list 'load-path "~/.emacs.d/autocomplete/")
+(add-to-list 'load-path "~/.emacs.d/autocomplete/lib/popup")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/autocomplete/ac-dict")
+(ac-config-default)
+
+(ac-set-trigger-key "TAB")
+(ac-set-trigger-key "<tab>")
+;; (setq ac-use-menu-map t)
+
+
+;; Default settings
+(setq ac-use-menu-map t)
+(define-key ac-menu-map "\C-n" 'ac-next)
+(define-key ac-menu-map "\C-p" 'ac-previous)
+
+;; ccputils
+;; (add-to-list 'load-path "~/.emacs.d/elisp/cpputils-cmake/")
+;; (require 'cpputils-cmake)
+
+;; (add-hook 'c-mode-common-hook
+;;           (lambda ()
+;;             (if (derived-mode-p 'c-mode 'c++-mode)
+;;                 (cppcm-reload-all)
+;;               )))
+(add-to-list 'load-path "~/.emacs.d/elisp/irony-mode")
+(require 'irony-mode)
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'objc-mode-hook 'irony-mode)
+;; replace the `completion-at-point' and `complete-symbol' bindings in
+;; irony-mode's buffers by irony-mode's function
+(defun my-irony-mode-hook ()
+  (define-key irony-mode-map [remap completion-at-point]
+    'irony-completion-at-point-async)
+  (define-key irony-mode-map [remap complete-symbol]
+    'irony-completion-at-point-async))
+(add-hook 'irony-mode-hook 'my-irony-mode-hook)
+
+
+;; OPTIONAL, somebody reported that they can use this package with Fortran
+(add-hook 'c90-mode-hook (lambda () (cppcm-reload-all)))
+;; OPTIONAL, avoid typing full path when starting gdb
+(global-set-key (kbd "C-c C-g")
+ '(lambda ()(interactive) (gud-gdb (concat "gdb --fullname " (cppcm-get-exe-path-current-buffer)))))
+
+
+
+;; ;; ecb
+;; (add-to-list 'load-path "~/.emacs.d/elisp/ecb/")
+;; (require 'ecb)
+;; (require 'ecb-autoloads)
+;; (setq stack-trace-on-error t) ;; this prevent some error (maybe it's not right to do it)
+;; (setq ecb-layout-name "left-analyse")
+;; (setq ecb-tip-of-the-day nil) 
+;; ;;; activate and deactivate ecb
+;; (global-set-key (kbd "C-. ,") 'ecb-activate)
+;; (global-set-key (kbd "C-. C-,") 'ecb-deactivate)
+;; ;;; show/hide ecb window
+;; (global-set-key (kbd "C-. ;") 'ecb-show-ecb-windows)
+;; (global-set-key (kbd "C-. C-;") 'ecb-hide-ecb-windows)
+;; ;;; quick navigation between ecb windows
+;; (global-set-key (kbd "C-. 1") 'ecb-goto-window-edit1)
+;; (global-set-key (kbd "C-. 2") 'ecb-goto-window-directories)
+;; (global-set-key (kbd "C-. 3") 'ecb-goto-window-sources)
+;; (global-set-key (kbd "C-. 4") 'ecb-goto-window-methods)
+;; (global-set-key (kbd "C-. 5") 'ecb-goto-window-compilation)
 
 ;; indentiation stuff (maybe some variable is missing for other language
 (setq-default indent-line-function 4)
@@ -342,48 +422,14 @@ or nil if not found."
 	(setq org-latex-pdf-process '("texi2dvi --pdf --verbose --batch %f"))
 	)
 
-;;yasnippet
-(add-to-list 'load-path "~/.emacs.d/yasnippet")
-(require 'yasnippet)
-;; (setq yas/trigger-key (kbd "C-c <tab>"))
-;; (setq yas/trigger-key (kbd "C-c TAB"))
-;; (yas--initialize)
-(yas/global-mode t)
-;; keybinding to deactivate yas mode (sometimes it's useful)
-(global-set-key (kbd "C-x y") 'yas/minor-mode) 
-(global-set-key (kbd "C-x C-y") 'yas-global-mode)
-(add-hook 'eshell-mode-hook
-	(lambda ()
-		(setq yas/minor-mode nil)
-		))
-(add-hook 'inferior-octave-mode-hook
-	(lambda ()
-		(setq yas/minor-mode nil)
-		))
-(add-hook 'inferior-python-mode-hook
-	(lambda ()
-		(setq yas/minor-mode nil)
-		))
-
-(setq ac-source-yasnippet nil)
-
-;;autocomplete
-(add-to-list 'load-path "~/.emacs.d/autocomplete/")
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/autocomplete/ac-dict")
-(ac-config-default)
-
-(setq ac-use-menu-map t)
-;; Default settings
-(define-key ac-menu-map "\C-n" 'ac-next)
-(define-key ac-menu-map "\C-p" 'ac-previous)
-
-;;show all in org-mode
-(global-set-key (kbd "C-. C-a") 'show-all)
+;; others
 (global-set-key (kbd "C-. l") 'visual-line-mode)
 (global-set-key (kbd "C-. t") 'toggle-truncate-lines)
 (global-set-key (kbd "C-. C-b m") 'menu-bar-mode)
 (global-set-key (kbd "C-. C-b t") 'tool-bar-mode)
+
+;; show all in org-mode
+(global-set-key (kbd "C-. C-a") 'show-all)
 
 ;; reftex in org-mode
 (defun org-mode-reftex-setup ()

@@ -13,3 +13,12 @@
 [submodule "yasnippet"]
 	path = yasnippet
 	url = git@github.com:capitaomorte/yasnippet.git
+[submodule "autocomplete"]
+	path = autocomplete
+	url = git@github.com:auto-complete/auto-complete.git
+[submodule "elisp/cpputils-cmake"]
+	path = elisp/cpputils-cmake
+	url = git@github.com:redguardtoo/cpputils-cmake.git
+[submodule "elisp/irony-mode"]
+	path = elisp/irony-mode
+	url = git@github.com:Sarcasm/irony-mode.git
