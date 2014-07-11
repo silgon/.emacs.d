@@ -4,10 +4,16 @@
 ;; font
 (add-to-list 'default-frame-alist
                        '(font . "DejaVu Sans Mono-11"))
+;; no startup message
+(setq inhibit-startup-message t)
 
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
+;; packages to install in a new configuration of emacs:
+;; auto-complete, yasnippet, auto-complete-c-headers, iedit
+
 ;; unset keys
 (define-key (current-global-map) (kbd "C-.") nil)
 (eval-after-load "flyspell"
@@ -19,9 +25,6 @@
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
 ;; save desktop
-;; (desktop-save-mode 1) ;; save my files open
-(setq inhibit-startup-message t)
-
 (load-file "~/.emacs.d/elisp/my-desktop.el")
 (global-set-key (kbd "C-. d s") 'my-desktop-save) ;; save
 (global-set-key (kbd "C-. d S") 'my-desktop-save-and-clear) ;; save and clear
@@ -142,11 +145,6 @@
 					 (filename . "OrgMode")))
 		  ("code" (filename . "code"))
 		  ("android" (filename . "programming/android"))
-		  ;; ("Web Dev" (or (mode . html-mode)
-		  ;; 		(mode . css-mode)))
-		  ;; ("Subversion" (name . "\*svn"))
-		  ;; ("Magit" (name . "\*magit"))
-		  ;; ("ERC" (mode . erc-mode))
 		  ("Help" (or (name . "\*Help\*")
 					  (name . "\*Apropos\*")
 					  (name . "\*info\*"))))))
@@ -166,7 +164,7 @@
 )
 
 ;;yasnippet
-(add-to-list 'load-path "~/.emacs.d/yasnippet")
+(add-to-list 'load-path "~/.emacs.d/elisp/yasnippet")
 (require 'yasnippet)
 (yas/global-mode t)
 ;; (setq yas/trigger-key (kbd "C-c <tab>"))
@@ -177,7 +175,7 @@
 (global-set-key (kbd "C-x y") 'yas/minor-mode) 
 (global-set-key (kbd "C-x C-y") 'yas-global-mode)
 
-;; don't activate in some script languages modes
+;; don't activate yasnippet in some script languages modes
 (add-hook 'eshell-mode-hook
 	(lambda ()
 		(setq yas/minor-mode nil)
@@ -194,21 +192,38 @@
 (setq ac-source-yasnippet nil)
 
 ;; Autocomplete
-(add-to-list 'load-path "~/.emacs.d/autocomplete/")
-(add-to-list 'load-path "~/.emacs.d/autocomplete/lib/popup")
+(add-to-list 'load-path "~/.emacs.d/elisp/auto-complete/")
+(add-to-list 'load-path "~/.emacs.d/elisp/auto-complete/lib/popup")
+(require 'auto-complete)
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/autocomplete/ac-dict")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/auto-complete/ac-dict")
 (ac-config-default)
 
-(ac-set-trigger-key "TAB")
-(ac-set-trigger-key "<tab>")
+
+(add-to-list 'load-path "~/.emacs.d/elisp/auto-complete-c-headers/")
+(defun my:ac-c-header-init ()
+	(require 'auto-complete-c-headers)
+	(add-to-list 'ac-sources 'ac-source-c-headers)
+	;; find libraries to add with next command: gcc -xc++ -E -v -
+	(add-to-list 'achead:include-directories '"/usr/lib/gcc/x86_64-linux-gnu/4.6/include") 
+)
+(add-hook 'c++-mode-hook 'my:ac-c-header-init)
+(add-hook 'c-mode-hook 'my:ac-c-header-init)
+
+;; (ac-set-trigger-key "TAB")
+;; (ac-set-trigger-key "<tab>")
 ;; (setq ac-use-menu-map t)
 
 
 ;; Default settings
-(setq ac-use-menu-map t)
+;; (setq ac-use-menu-map t)
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
+
+;; flycheck
+(add-to-list 'load-path "~/.emacs.d/elisp/flycheck/")
+;; (require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; ccputils
 ;; (add-to-list 'load-path "~/.emacs.d/elisp/cpputils-cmake/")
@@ -220,7 +235,7 @@
 ;;                 (cppcm-reload-all)
 ;;               )))
 (add-to-list 'load-path "~/.emacs.d/elisp/irony-mode")
-(require 'irony-mode)
+(require 'irony)
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
