@@ -221,9 +221,9 @@
 (define-key ac-menu-map "\C-p" 'ac-previous)
 
 ;; flycheck
-(add-to-list 'load-path "~/.emacs.d/elisp/flycheck/")
+;; (add-to-list 'load-path "~/.emacs.d/elisp/flycheck/")
 ;; (require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
+;; (add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; ccputils
 ;; (add-to-list 'load-path "~/.emacs.d/elisp/cpputils-cmake/")
@@ -378,27 +378,27 @@ or nil if not found."
 ;;(tabkey2-mode t)
 
 
-(add-to-list 'load-path "~/.emacs.d/elisp/web-mode/")
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.ctp?\\'" . web-mode))
+;; (add-to-list 'load-path "~/.emacs.d/elisp/web-mode/")
+;; (require 'web-mode)
+;; (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.ctp?\\'" . web-mode))
 
-(defun web-mode-hook ()
-  "Hooks for Web mode."
-  ;; (setq web-mode-markup-indent-offset 2)
-)
-(add-hook 'web-mode-hook  'web-mode-hook)
-(defun yas-web-mode-fix ()
-  (web-mode-buffer-refresh)
-  (indent-for-tab-command))
-(setq yas/after-exit-snippet-hook 'yas-web-mode-fix)
+;; (defun web-mode-hook ()
+;;   "Hooks for Web mode."
+;;   ;; (setq web-mode-markup-indent-offset 2)
+;; )
+;; (add-hook 'web-mode-hook  'web-mode-hook)
+;; (defun yas-web-mode-fix ()
+;;   (web-mode-buffer-refresh)
+;;   (indent-for-tab-command))
+;; (setq yas/after-exit-snippet-hook 'yas-web-mode-fix)
 
 
 (when (and (equal emacs-major-version 23)
