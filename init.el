@@ -21,8 +21,17 @@
 (eval-after-load "php-mode"
 	'(define-key php-mode-map (kbd "C-.") nil))
 
-;; my default path for files
-(add-to-list 'load-path "~/.emacs.d/elisp/")
+;; my default path for plugins - adding all subfolders
+(let ((base "~/.emacs.d/elisp/"))
+  (add-to-list 'load-path base)
+  (dolist (f (directory-files base))
+    (let ((name (concat base "/" f)))
+      (when (and (file-directory-p name) 
+                 (not (equal f ".."))
+                 (not (equal f ".")))
+        (add-to-list 'load-path name)))))
+
+
 
 ;; save desktop
 (load-file "~/.emacs.d/elisp/my-desktop.el")
@@ -50,7 +59,6 @@
 
 ;; org-mode and org-reveal
 (add-to-list 'load-path "~/.emacs.d/elisp/org-mode/lisp")
-(add-to-list 'load-path "~/.emacs.d/elisp/org-reveal")
 (require 'org-compat)
 (eval-after-load "org"
 	'(progn
@@ -63,7 +71,6 @@
 
 
 ;; markdown-mode
-(add-to-list 'load-path "~/.emacs.d/elisp/markdown-mode")
 (autoload 'markdown-mode "markdown-mode" "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
@@ -164,7 +171,6 @@
 )
 
 ;;yasnippet
-(add-to-list 'load-path "~/.emacs.d/elisp/yasnippet")
 (require 'yasnippet)
 (yas/global-mode t)
 ;; (setq yas/trigger-key (kbd "C-c <tab>"))
@@ -192,7 +198,6 @@
 (setq ac-source-yasnippet nil)
 
 ;; Autocomplete
-(add-to-list 'load-path "~/.emacs.d/elisp/auto-complete/")
 (add-to-list 'load-path "~/.emacs.d/elisp/auto-complete/lib/popup")
 (require 'auto-complete)
 (require 'auto-complete-config)
@@ -200,7 +205,6 @@
 (ac-config-default)
 
 
-(add-to-list 'load-path "~/.emacs.d/elisp/auto-complete-c-headers/")
 (defun my:ac-c-header-init ()
 	(require 'auto-complete-c-headers)
 	(add-to-list 'ac-sources 'ac-source-c-headers)
@@ -234,7 +238,6 @@
 ;;             (if (derived-mode-p 'c-mode 'c++-mode)
 ;;                 (cppcm-reload-all)
 ;;               )))
-(add-to-list 'load-path "~/.emacs.d/elisp/irony-mode")
 (require 'irony)
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
@@ -295,7 +298,6 @@
 (setq ispell-program-name "aspell")
 
 ;; ido mode
-(add-to-list 'load-path "~/.emacs.d/elisp/ido-mode/")
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (require 'ido)
@@ -339,7 +341,6 @@ buffer is not visiting a file."
 (global-set-key (kbd "M-<f8>") 'flyspell-check-next-highlighted-word)
 
 ;; android-mode
-(add-to-list 'load-path "~/.emacs.d/elisp/android")
 (require 'android-mode)
 (global-set-key (kbd "C-<f12>") 'android-ant-debug)
 
@@ -460,7 +461,6 @@ or nil if not found."
 (add-hook 'org-mode-hook 'org-mode-reftex-setup)
 
 ;; zotelo (for zotero)
-(add-to-list 'load-path "~/.emacs.d/elisp/zotelo/")
 (require 'zotelo)
 (add-hook 'TeX-mode-hook 'zotelo-minor-mode)
 (add-hook 'org-mode-hook 'zotelo-minor-mode)
@@ -506,8 +506,6 @@ or nil if not found."
 	)
 
 ;; if X11 or terminal
-(add-to-list 'load-path "~/.emacs.d/themes/")
-(add-to-list 'load-path "~/.emacs.d/color-theme/")
 
 (case window-system
 	(x 
