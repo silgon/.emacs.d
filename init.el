@@ -14,13 +14,6 @@
 ;; packages to install in a new configuration of emacs:
 ;; auto-complete, yasnippet, auto-complete-c-headers, iedit
 
-;; unset keys
-(define-key (current-global-map) (kbd "C-.") nil)
-(eval-after-load "flyspell"
-	'(define-key flyspell-mode-map (kbd "C-.") nil))
-(eval-after-load "php-mode"
-	'(define-key php-mode-map (kbd "C-.") nil))
-
 ;; my default path for plugins - adding all subfolders
 (let ((base "~/.emacs.d/elisp/"))
   (add-to-list 'load-path base)
@@ -30,6 +23,15 @@
                  (not (equal f ".."))
                  (not (equal f ".")))
         (add-to-list 'load-path name)))))
+
+
+
+;; unset keys
+(define-key (current-global-map) (kbd "C-.") nil)
+(eval-after-load "flyspell"
+	'(define-key flyspell-mode-map (kbd "C-.") nil))
+(eval-after-load "php-mode"
+	'(define-key php-mode-map (kbd "C-.") nil))
 
 
 
@@ -401,15 +403,6 @@ or nil if not found."
 ;;   (indent-for-tab-command))
 ;; (setq yas/after-exit-snippet-hook 'yas-web-mode-fix)
 
-
-(when (and (equal emacs-major-version 23)
-		  (equal emacs-minor-version 3))
-	;; not sure whether this still applies or not
-	(setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %s"))
-	;; (setq org-latex-to-pdf-process '("texi2dvi --pdf --verbose --batch %s"))
-
-	)
-
 (when (equal emacs-major-version 24)
 	;; if emacs 24 then we can use the great org-babel mode
 	(org-babel-do-load-languages
@@ -498,7 +491,6 @@ or nil if not found."
 [PACKAGES]
 [EXTRA]
 "	
-		 ;; ("\\part{%s}" . "\\part*{%s}")
 		 ("\\chapter{%s}" . "\\chapter*{%s}")
 		 ("\\section{%s}" . "\\section*{%s}")
 		 ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -506,7 +498,6 @@ or nil if not found."
 	)
 
 ;; if X11 or terminal
-
 (case window-system
 	(x 
 		;; color theme
@@ -551,7 +542,6 @@ or nil if not found."
 ;; (defalias 'xml-mode 'nxml-mode)
 
 ;; major modes
-
 ;; (add-to-list 'load-path "~/.emacs.d/elisp/uml/")
 ;; (require 'plantuml-mode)
 
@@ -585,3 +575,9 @@ or nil if not found."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; ergoemacs
+;; (require 'ergoemacs-mode)
+;; (setq ergoemacs-theme nil)
+;; (setq ergoemacs-keyboard-layout "es-dv-1")
+;; (ergoemacs-mode 1)

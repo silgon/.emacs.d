@@ -12,19 +12,22 @@
 	url = https://github.com/yjwen/org-reveal.git
 [submodule "yasnippet"]
 	path = elisp/yasnippet
-	url = git@github.com:capitaomorte/yasnippet.git
+	url = https://github.com/capitaomorte/yasnippet.git
 [submodule "autocomplete"]
 	path = elisp/auto-complete
-	url = git@github.com:auto-complete/auto-complete.git
+	url = https://github.com/auto-complete/auto-complete.git
 [submodule "elisp/cpputils-cmake"]
 	path = elisp/cpputils-cmake
-	url = git@github.com:redguardtoo/cpputils-cmake.git
+	url = https://github.com/redguardtoo/cpputils-cmake.git
 [submodule "elisp/irony-mode"]
 	path = elisp/irony-mode
-	url = git@github.com:Sarcasm/irony-mode.git
+	url = https://github.com/Sarcasm/irony-mode.git
 [submodule "elisp/auto-complete-c-headers"]
 	path = elisp/auto-complete-c-headers
 	url = https://github.com/mooz/auto-complete-c-headers.git
 [submodule "elisp/flycheck"]
 	path = elisp/flycheck
 	url = https://github.com/flycheck/flycheck.git
+[submodule "elisp/ergoemacs-mode"]
+	path = elisp/ergoemacs-mode
+	url = https://github.com/ergoemacs/ergoemacs-mode.git
