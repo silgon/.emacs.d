@@ -220,16 +220,19 @@
 ;; (ac-set-trigger-key "<tab>")
 ;; (setq ac-use-menu-map t)
 
-
 ;; Default settings
 ;; (setq ac-use-menu-map t)
-(define-key ac-menu-map "\C-n" 'ac-next)
-(define-key ac-menu-map "\C-p" 'ac-previous)
+(define-key ac-menu-map (kbd "C-n") 'ac-next)
+(define-key ac-menu-map (kbd "C-p") 'ac-previous)
+
+;; iedit
+(require 'iedit)
+(global-set-key (kbd "C-. C-e") 'iedit-mode) 
+
 
 ;; flycheck
-;; (add-to-list 'load-path "~/.emacs.d/elisp/flycheck/")
-;; (require 'flycheck)
-;; (add-hook 'after-init-hook #'global-flycheck-mode)
+(require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; ccputils
 ;; (add-to-list 'load-path "~/.emacs.d/elisp/cpputils-cmake/")

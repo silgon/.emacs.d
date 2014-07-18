@@ -31,3 +31,9 @@
 [submodule "elisp/ergoemacs-mode"]
 	path = elisp/ergoemacs-mode
 	url = https://github.com/ergoemacs/ergoemacs-mode.git
+[submodule "elisp/iedit"]
+	path = elisp/iedit
+	url = https://github.com/victorhge/iedit.git
+[submodule "elisp/dash.el"]
+	path = elisp/dash.el
+	url = https://github.com/magnars/dash.el.git
