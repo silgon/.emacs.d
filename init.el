@@ -233,22 +233,39 @@
 ;; flycheck
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(global-set-key (kbd "C-. f") 'flycheck-mode) 
 
 ;; ccputils
-;; (add-to-list 'load-path "~/.emacs.d/elisp/cpputils-cmake/")
-;; (require 'cpputils-cmake)
+(require 'cpputils-cmake)
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (if (derived-mode-p 'c-mode 'c++-mode)
+                (cppcm-reload-all)
+              )))
+;; OPTIONAL, somebody reported that they can use this package with Fortran
+(add-hook 'c90-mode-hook (lambda () (cppcm-reload-all)))
+;; OPTIONAL, avoid typing full path when starting gdb
+(global-set-key (kbd "C-c C-g")
+ '(lambda ()(interactive) (gud-gdb (concat "gdb --fullname " (cppcm-get-exe-path-current-buffer)))))
 
-;; (add-hook 'c-mode-common-hook
-;;           (lambda ()
-;;             (if (derived-mode-p 'c-mode 'c++-mode)
-;;                 (cppcm-reload-all)
-;;               )))
+
+
 (require 'irony)
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
 ;; replace the `completion-at-point' and `complete-symbol' bindings in
 ;; irony-mode's buffers by irony-mode's function
+(require 'ac-irony)
+(defun my-ac-irony-setup ()
+  ;; be cautious, if yas is not enabled before (auto-complete-mode 1), overlays
+  ;; *may* persist after an expansion.
+  (yas-minor-mode 1)
+  (auto-complete-mode 1)
+  (add-to-list 'ac-sources 'ac-source-irony)
+  (define-key irony-mode-map (kbd "M-RET") 'ac-complete-irony-async))
+(add-hook 'irony-mode-hook 'my-ac-irony-setup)
+
 (defun my-irony-mode-hook ()
   (define-key irony-mode-map [remap completion-at-point]
     'irony-completion-at-point-async)
@@ -256,12 +273,19 @@
     'irony-completion-at-point-async))
 (add-hook 'irony-mode-hook 'my-irony-mode-hook)
 
+(require 'company)
+(add-hook 'c++-mode-hook 'company-mode)
+(add-hook 'c-mode-hook 'company-mode)
+(add-hook 'objc-mode-hook 'company-mode)
+(require 'company-irony)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
 
-;; OPTIONAL, somebody reported that they can use this package with Fortran
-(add-hook 'c90-mode-hook (lambda () (cppcm-reload-all)))
-;; OPTIONAL, avoid typing full path when starting gdb
-(global-set-key (kbd "C-c C-g")
- '(lambda ()(interactive) (gud-gdb (concat "gdb --fullname " (cppcm-get-exe-path-current-buffer)))))
+;; (optional) adds CC special commands to `company-begin-commands' in order to
+;; trigger completion at interesting places, such as after scope operator
+;;     std::|
+(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+
 
 
 
