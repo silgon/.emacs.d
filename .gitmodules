@@ -76,3 +76,9 @@
 [submodule "elisp/emacs-python-environment"]
 	path = elisp/emacs-python-environment
 	url = https://github.com/tkf/emacs-python-environment.git
+[submodule "elisp/s.el"]
+	path = elisp/s.el
+	url = https://github.com/magnars/s.el.git
+[submodule "elisp/f.el"]
+	path = elisp/f.el
+	url = https://github.com/rejeep/f.el.git
