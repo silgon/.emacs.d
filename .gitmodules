@@ -46,3 +46,33 @@
 [submodule "elisp/company-mode"]
 	path = elisp/company-mode
 	url = https://github.com/company-mode/company-mode.git
+[submodule "elisp/company-c-headers"]
+	path = elisp/company-c-headers
+	url = https://github.com/randomphrase/company-c-headers.git
+[submodule "elisp/company-inf-python"]
+	path = elisp/company-inf-python
+	url = https://github.com/proofit404/company-inf-python.git
+[submodule "elisp/anaconda-mode"]
+	path = elisp/anaconda-mode
+	url = https://github.com/proofit404/anaconda-mode.git
+[submodule "elisp/company-anaconda"]
+	path = elisp/company-anaconda
+	url = https://github.com/proofit404/company-anaconda.git
+[submodule "elisp/elisp-json-rpc"]
+	path = elisp/elisp-json-rpc
+	url = https://github.com/skeeto/elisp-json-rpc.git
+[submodule "elisp/emacs-jedi"]
+	path = elisp/emacs-jedi
+	url = https://github.com/tkf/emacs-jedi.git
+[submodule "elisp/emacs-epc"]
+	path = elisp/emacs-epc
+	url = https://github.com/kiwanami/emacs-epc.git
+[submodule "elisp/emacs-deferred"]
+	path = elisp/emacs-deferred
+	url = https://github.com/kiwanami/emacs-deferred.git
+[submodule "elisp/emacs-ctable"]
+	path = elisp/emacs-ctable
+	url = https://github.com/kiwanami/emacs-ctable.git
+[submodule "elisp/emacs-python-environment"]
+	path = elisp/emacs-python-environment
+	url = https://github.com/tkf/emacs-python-environment.git

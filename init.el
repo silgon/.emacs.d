@@ -199,31 +199,8 @@
 
 (setq ac-source-yasnippet nil)
 
-;; Autocomplete
+;; auto-complete
 (add-to-list 'load-path "~/.emacs.d/elisp/auto-complete/lib/popup")
-(require 'auto-complete)
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/auto-complete/ac-dict")
-(ac-config-default)
-
-
-(defun my:ac-c-header-init ()
-	(require 'auto-complete-c-headers)
-	(add-to-list 'ac-sources 'ac-source-c-headers)
-	;; find libraries to add with next command: gcc -xc++ -E -v -
-	(add-to-list 'achead:include-directories '"/usr/lib/gcc/x86_64-linux-gnu/4.6/include") 
-)
-(add-hook 'c++-mode-hook 'my:ac-c-header-init)
-(add-hook 'c-mode-hook 'my:ac-c-header-init)
-
-;; (ac-set-trigger-key "TAB")
-;; (ac-set-trigger-key "<tab>")
-;; (setq ac-use-menu-map t)
-
-;; Default settings
-;; (setq ac-use-menu-map t)
-(define-key ac-menu-map (kbd "C-n") 'ac-next)
-(define-key ac-menu-map (kbd "C-p") 'ac-previous)
 
 ;; iedit
 (require 'iedit)
@@ -254,38 +231,27 @@
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
-;; replace the `completion-at-point' and `complete-symbol' bindings in
-;; irony-mode's buffers by irony-mode's function
-(require 'ac-irony)
-(defun my-ac-irony-setup ()
-  ;; be cautious, if yas is not enabled before (auto-complete-mode 1), overlays
-  ;; *may* persist after an expansion.
-  (yas-minor-mode 1)
-  (auto-complete-mode 1)
-  (add-to-list 'ac-sources 'ac-source-irony)
-  (define-key irony-mode-map (kbd "M-RET") 'ac-complete-irony-async))
-(add-hook 'irony-mode-hook 'my-ac-irony-setup)
-
-(defun my-irony-mode-hook ()
-  (define-key irony-mode-map [remap completion-at-point]
-    'irony-completion-at-point-async)
-  (define-key irony-mode-map [remap complete-symbol]
-    'irony-completion-at-point-async))
-(add-hook 'irony-mode-hook 'my-irony-mode-hook)
 
 (require 'company)
-(add-hook 'c++-mode-hook 'company-mode)
-(add-hook 'c-mode-hook 'company-mode)
-(add-hook 'objc-mode-hook 'company-mode)
+(add-hook 'after-init-hook 'global-company-mode)
+
 (require 'company-irony)
+(require 'company-c-headers)
+(require 'company-inf-python)
+
+(require 'company-anaconda)
+
 (eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
+	(progn
+		'(add-to-list 'company-backends 'company-c-headers)
+		'(add-to-list 'company-backends 'company-irony)
+		'(add-to-list 'company-backends 'company-anaconda)
+		))
 
 ;; (optional) adds CC special commands to `company-begin-commands' in order to
 ;; trigger completion at interesting places, such as after scope operator
 ;;     std::|
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
-
 
 
 
