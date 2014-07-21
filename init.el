@@ -244,12 +244,10 @@
 
 (require 'company-anaconda)
 
-(eval-after-load 'company
-	(progn
-		'(add-to-list 'company-backends 'company-c-headers)
-		'(add-to-list 'company-backends 'company-irony)
-		'(add-to-list 'company-backends 'company-anaconda)
-		))
+(add-to-list 'company-backends 'company-anaconda)
+(add-to-list 'company-backends 'company-c-headers)
+(add-to-list 'company-backends 'company-irony)
+
 
 ;; (optional) adds CC special commands to `company-begin-commands' in order to
 ;; trigger completion at interesting places, such as after scope operator
