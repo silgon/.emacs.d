@@ -1,3 +1,8 @@
+;; Before running properly this installation you will need to install some packages
+;;   sudo apt-get install clang # in the case of ubuntu
+;;   sudo pip install pylint jsonrpc rope jedi
+;; and of course, don't forget to download the git submodules
+
 ;; emacs server
 (server-start)
 
@@ -11,8 +16,6 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
-;; packages to install in a new configuration of emacs:
-;; auto-complete, yasnippet, auto-complete-c-headers, iedit
 
 ;; my default path for plugins - adding all subfolders
 (let ((base "~/.emacs.d/elisp/"))
