@@ -85,3 +85,6 @@
 [submodule "elisp/Fill-Column-Indicator"]
 	path = elisp/Fill-Column-Indicator
 	url = https://github.com/alpaker/Fill-Column-Indicator.git
+[submodule "elisp/flycheck-google-cpplint"]
+	path = elisp/flycheck-google-cpplint
+	url = https://github.com/flycheck/flycheck-google-cpplint.git

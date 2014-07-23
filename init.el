@@ -1,6 +1,6 @@
 ;; Before running properly this installation you will need to install some packages
 ;;   sudo apt-get install clang # in the case of ubuntu
-;;   sudo pip install pylint jsonrpc rope jedi
+;;   sudo pip install pylint jsonrpc rope jedi cpplint
 ;; and of course, don't forget to download the git submodules
 
 ;; emacs server
@@ -76,11 +76,11 @@
 
 
 ;; fill column indicator
-(require 'fill-column-indicator)
-(setq fci-rule-width 1)
-(setq fci-rule-color "DimGray")
-(add-hook 'c-mode-hook 'fci-mode)
-(add-hook 'c++-mode-hook 'fci-mode)
+;; (require 'fill-column-indicator)
+;; (setq fci-rule-width 1)
+;; (setq fci-rule-color "DimGray")
+;; (add-hook 'c-mode-hook 'fci-mode)
+;; (add-hook 'c++-mode-hook 'fci-mode)
 
 ;; markdown-mode
 (autoload 'markdown-mode "markdown-mode" "Major mode for editing Markdown files" t)
@@ -221,19 +221,30 @@
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (global-set-key (kbd "C-. f") 'flycheck-mode) 
+(eval-after-load 'flycheck
+  '(progn
+	   (require 'flycheck-google-cpplint)
+	   ;; Add Google C++ Style checker.
+	   ;; In default, syntax checked by Clang and Cppcheck.
+	   (flycheck-add-next-checker 'c/c++-clang
+		   '(warnings-only . c/c++-googlelint))))
 
-;; ccputils
-(require 'cpputils-cmake)
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (if (derived-mode-p 'c-mode 'c++-mode)
-                (cppcm-reload-all)
-              )))
-;; OPTIONAL, somebody reported that they can use this package with Fortran
-(add-hook 'c90-mode-hook (lambda () (cppcm-reload-all)))
-;; OPTIONAL, avoid typing full path when starting gdb
-(global-set-key (kbd "C-c C-g")
- '(lambda ()(interactive) (gud-gdb (concat "gdb --fullname " (cppcm-get-exe-path-current-buffer)))))
+(custom-set-variables
+	'(flycheck-c/c++-googlelint-executable "cpplint")
+)
+
+;; ;; ccputils
+;; (require 'cpputils-cmake)
+;; (add-hook 'c-mode-common-hook
+;;           (lambda ()
+;;             (if (derived-mode-p 'c-mode 'c++-mode)
+;;                 (cppcm-reload-all)
+;;               )))
+;; ;; OPTIONAL, somebody reported that they can use this package with Fortran
+;; (add-hook 'c90-mode-hook (lambda () (cppcm-reload-all)))
+;; ;; OPTIONAL, avoid typing full path when starting gdb
+;; (global-set-key (kbd "C-c C-g")
+;;  '(lambda ()(interactive) (gud-gdb (concat "gdb --fullname " (cppcm-get-exe-path-current-buffer)))))
 
 
 
@@ -284,6 +295,7 @@
 ;; (global-set-key (kbd "C-. 5") 'ecb-goto-window-compilation)
 
 ;; indentiation stuff (maybe some variable is missing for other language
+(setq-default indent-tabs-mode nil)
 (setq-default indent-line-function 4)
 (setq-default tab-width 4)
 (setq-default c-basic-offset 4)
