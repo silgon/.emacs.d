@@ -82,3 +82,6 @@
 [submodule "elisp/f.el"]
 	path = elisp/f.el
 	url = https://github.com/rejeep/f.el.git
+[submodule "elisp/Fill-Column-Indicator"]
+	path = elisp/Fill-Column-Indicator
+	url = https://github.com/alpaker/Fill-Column-Indicator.git
