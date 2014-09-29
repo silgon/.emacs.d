@@ -96,11 +96,11 @@
 (transient-mark-mode -1)
 
 ;; miscellaneous
-(global-set-key "\C-xc" 'calendar)
-(global-set-key "\C-xt" 'eshell)
+(global-set-key (kbd "C-x c") 'calendar)
+(global-set-key (kbd "C-x t") 'eshell)
 (global-set-key (kbd "C-. C-c") 'comment-or-uncomment-region)
-(global-set-key (kbd "C-. C-l") 'global-linum-mode) ;; number of line
-(global-set-key (kbd "C-. C-i") 'irc)
+(global-set-key (kbd "C-. C-.") 'global-linum-mode) ;; number of line
+;; (global-set-key (kbd "C-. C-i") 'irc)
 
 (global-set-key (kbd "s-C-r") 'shrink-window-horizontally)
 (global-set-key (kbd "s-C-n") 'enlarge-window-horizontally)
@@ -174,6 +174,22 @@
 ;; gpg encryption
 (require 'epa-file)
 (epa-file-enable)
+
+;; navigation
+(global-set-key (kbd "C-. C-p") 'beginning-of-defun) 
+(global-set-key (kbd "C-. C-n") 'end-of-defun) 
+;; hs for navigation
+(defun hs-and-shortcuts ()
+	"Custom function to spell check next highlighted word"
+    (local-set-key (kbd "C-. C-S-s") 'hs-hide-block)
+    (local-set-key (kbd "C-. C-s") 'hs-show-block)
+    (local-set-key (kbd "C-. C-S-l") 'hs-hide-level)
+    (local-set-key (kbd "C-. C-S-a") 'hs-hide-all)
+    (local-set-key (kbd "C-. C-a") 'hs-show-all)
+    (hs-minor-mode t)
+)
+(add-hook 'c-mode-common-hook 'hs-and-shortcuts)
+
 
 ;; sage mode
 (when (file-exists-p "/usr/bin/sage")
