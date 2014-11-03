@@ -49,9 +49,6 @@
 [submodule "elisp/company-c-headers"]
 	path = elisp/company-c-headers
 	url = https://github.com/randomphrase/company-c-headers.git
-[submodule "elisp/company-inf-python"]
-	path = elisp/company-inf-python
-	url = https://github.com/proofit404/company-inf-python.git
 [submodule "elisp/anaconda-mode"]
 	path = elisp/anaconda-mode
 	url = https://github.com/proofit404/anaconda-mode.git

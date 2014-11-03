@@ -274,7 +274,7 @@
 
 (require 'company-irony)
 (require 'company-c-headers)
-(require 'company-inf-python)
+;; (require 'company-inf-python)
 
 (require 'company-anaconda)
 
