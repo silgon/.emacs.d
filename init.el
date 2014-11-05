@@ -1,5 +1,5 @@
 ;; Before running properly this installation you will need to install some packages
-;;   sudo apt-get install clang # in the case of ubuntu
+;;   sudo apt-get install clang libclang-dev # in the case of ubuntu
 ;;   sudo pip install pylint json-rpc rope jedi cpplint
 ;; and of course, don't forget to download the git submodules
 
