@@ -61,6 +61,9 @@
 ;; for this to run, you'll need the installation in root (I'll try to do it later in the git repository)
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
 
 ;; org-mode and org-reveal
 (add-to-list 'load-path "~/.emacs.d/elisp/org-mode/lisp")
@@ -73,7 +76,8 @@
 		 ;; open with evince
 		 (setcdr (assoc "\\.pdf\\'" org-file-apps) "evince %s")
 		 ))
-
+(setq org-highlight-latex-and-related '(latex))
+;; (setq org-pretty-entities t)
 
 ;; fill column indicator
 ;; (require 'fill-column-indicator)
