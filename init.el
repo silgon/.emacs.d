@@ -461,7 +461,12 @@ or nil if not found."
 
 	;; for newest org-mode
 	;; (setq org-latex-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
-	(setq org-latex-pdf-process '("texi2dvi --pdf --verbose --batch %f"))
+	;; (setq org-latex-pdf-process '("texi2dvi --pdf --verbose --batch %f"))
+    (setq org-latex-pdf-process
+        '("pdflatex -interaction nonstopmode %f"
+             "bibtex %f"
+             "pdflatex -interaction nonstopmode %f"
+             "pdflatex -interaction nonstopmode %f"))
 	)
 
 ;; others
