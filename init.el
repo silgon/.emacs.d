@@ -495,6 +495,9 @@ or nil if not found."
     )
 (add-hook 'org-mode-hook 'org-mode-reftex-setup)
 
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
+(add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
+
 ;; zotelo (for zotero)
 (require 'zotelo)
 (add-hook 'TeX-mode-hook 'zotelo-minor-mode)
