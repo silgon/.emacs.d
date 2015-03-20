@@ -482,15 +482,17 @@ or nil if not found."
 
 ;; reftex in org-mode
 (defun org-mode-reftex-setup ()
-  (load-library "reftex")
-  (and (buffer-file-name) (file-exists-p (buffer-file-name))
-       (progn
-     ;enable auto-revert-mode to update reftex when bibtex file changes on disk
-         (global-auto-revert-mode t)
-         (reftex-parse-all)
-     ))
-  (define-key org-mode-map (kbd "C-c r") 'reftex-citation)
-  )
+    (load-library "reftex")
+    (and (buffer-file-name) (file-exists-p (buffer-file-name))
+        (progn
+            ;; Reftex should use the org file as master file. See C-h v TeX-master for infos.
+            (setq TeX-master t)
+            ;; enable auto-revert-mode to update reftex when bibtex file changes on disk
+            (global-auto-revert-mode t)
+            (reftex-parse-all)
+            ))
+    (define-key org-mode-map (kbd "C-c r") 'reftex-citation)
+    )
 (add-hook 'org-mode-hook 'org-mode-reftex-setup)
 
 ;; zotelo (for zotero)
