@@ -48,6 +48,12 @@
 (global-set-key (kbd "C-. d g") 'my-desktop-name) ;; get name
 (global-set-key (kbd "C-. d 0") 'desktop-clear) ;; get name
 
+;; navigate
+(global-set-key (kbd "C-. c r")  'windmove-left)
+(global-set-key (kbd "C-. c n") 'windmove-right)
+(global-set-key (kbd "C-. c c")    'windmove-up)
+(global-set-key (kbd "C-. c t")  'windmove-down)
+
 ;; dead-keys
 (require 'iso-transl)
 
