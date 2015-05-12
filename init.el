@@ -36,6 +36,7 @@
 
 ;; unset keys
 (define-key (current-global-map) (kbd "C-.") nil)
+(define-key (current-global-map) (kbd "C-,") nil)
 (eval-after-load "flyspell"
 	'(define-key flyspell-mode-map (kbd "C-.") nil))
 (eval-after-load "php-mode"
@@ -54,10 +55,11 @@
 (global-set-key (kbd "C-. d 0") 'desktop-clear) ;; get name
 
 ;; navigate
-(global-set-key (kbd "C-. r")  'windmove-left)
-(global-set-key (kbd "C-. n") 'windmove-right)
-(global-set-key (kbd "C-. c")    'windmove-up)
-(global-set-key (kbd "C-. t")  'windmove-down)
+(global-set-key (kbd "C-, C-r")  'windmove-left)
+(global-set-key (kbd "C-, C-n") 'windmove-right)
+(global-set-key (kbd "C-, C-c")    'windmove-up)
+(global-set-key (kbd "C-, C-t")  'windmove-down)
+
 
 (global-set-key (kbd "s-C-r") 'shrink-window-horizontally)
 (global-set-key (kbd "s-C-n") 'enlarge-window-horizontally)
@@ -485,7 +487,7 @@ or nil if not found."
 
 ;; others
 (global-set-key (kbd "C-. l") 'visual-line-mode)
-(global-set-key (kbd "C-. h") 'toggle-truncate-lines)
+(global-set-key (kbd "C-. t") 'toggle-truncate-lines)
 (global-set-key (kbd "C-. C-b m") 'menu-bar-mode)
 (global-set-key (kbd "C-. C-b t") 'tool-bar-mode)
 
