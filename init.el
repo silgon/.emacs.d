@@ -1,8 +1,13 @@
+;;; Package --- Sumary:
+;; emacs configuration
+
+;;; Commentary:
 ;; Before running properly this installation you will need to install some packages
 ;;   sudo apt-get install clang libclang-dev # in the case of ubuntu
 ;;   sudo pip install pylint json-rpc rope jedi cpplint
 ;; and of course, don't forget to download the git submodules
 
+;;; code:
 ;; emacs server
 (server-start)
 
@@ -49,10 +54,15 @@
 (global-set-key (kbd "C-. d 0") 'desktop-clear) ;; get name
 
 ;; navigate
-(global-set-key (kbd "C-. c r")  'windmove-left)
-(global-set-key (kbd "C-. c n") 'windmove-right)
-(global-set-key (kbd "C-. c c")    'windmove-up)
-(global-set-key (kbd "C-. c t")  'windmove-down)
+(global-set-key (kbd "C-. r")  'windmove-left)
+(global-set-key (kbd "C-. n") 'windmove-right)
+(global-set-key (kbd "C-. c")    'windmove-up)
+(global-set-key (kbd "C-. t")  'windmove-down)
+
+(global-set-key (kbd "s-C-r") 'shrink-window-horizontally)
+(global-set-key (kbd "s-C-n") 'enlarge-window-horizontally)
+(global-set-key (kbd "s-C-t") 'shrink-window)
+(global-set-key (kbd "s-C-c") 'enlarge-window)
 
 ;; dead-keys
 (require 'iso-transl)
@@ -112,10 +122,6 @@
 (global-set-key (kbd "C-. C-.") 'global-linum-mode) ;; number of line
 ;; (global-set-key (kbd "C-. C-i") 'irc)
 
-(global-set-key (kbd "s-C-r") 'shrink-window-horizontally)
-(global-set-key (kbd "s-C-n") 'enlarge-window-horizontally)
-(global-set-key (kbd "s-C-t") 'shrink-window)
-(global-set-key (kbd "s-C-c") 'enlarge-window)
 ;; scroll by one
 (global-set-key (kbd "M-n") (lambda () (interactive) (scroll-up 1)))
 (global-set-key (kbd "M-p") (lambda () (interactive) (scroll-down 1)))
@@ -479,7 +485,7 @@ or nil if not found."
 
 ;; others
 (global-set-key (kbd "C-. l") 'visual-line-mode)
-(global-set-key (kbd "C-. t") 'toggle-truncate-lines)
+(global-set-key (kbd "C-. h") 'toggle-truncate-lines)
 (global-set-key (kbd "C-. C-b m") 'menu-bar-mode)
 (global-set-key (kbd "C-. C-b t") 'tool-bar-mode)
 
