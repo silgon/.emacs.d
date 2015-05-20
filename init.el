@@ -621,6 +621,9 @@ or nil if not found."
 (setq auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist))
 (setq-default octave-comment-start "% ")
 
+;; opencl files with c-mode syntax
+(setq auto-mode-alist (cons '("\\.cl$" . c-mode) auto-mode-alist))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
