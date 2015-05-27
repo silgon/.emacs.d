@@ -11,6 +11,13 @@
 ;; emacs server
 (server-start)
 
+
+;; auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony
+;; company-c-headers company-anaconda iedit auto-complete auto-complete-c-headers
+;; irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet
+;; zotelo org ctable flycheck-irony
+
+
 ;; font
 (add-to-list 'default-frame-alist
                        '(font . "DejaVu Sans Mono-11"))
@@ -18,9 +25,19 @@
 (setq inhibit-startup-message t)
 
 (require 'package)
+(setq package-list '(auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony company-c-headers company-anaconda iedit auto-complete auto-complete-c-headers irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
+
+; fetch the list of packages available
+(unless package-archive-contents
+  (package-refresh-contents))
+
+; install the missing packages
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
 
 ;; my default path for plugins - adding all subfolders
 (let ((base "~/.emacs.d/elisp/"))
@@ -31,8 +48,6 @@
                  (not (equal f ".."))
                  (not (equal f ".")))
         (add-to-list 'load-path name)))))
-
-
 
 ;; unset keys
 (define-key (current-global-map) (kbd "C-.") nil)
@@ -191,7 +206,7 @@
 
 ;; gpg encryption
 (require 'epa-file)
-(epa-file-enable)
+;; (epa-file-enable)
 
 ;; navigation
 (global-set-key (kbd "C-. C-p") 'beginning-of-defun) 
@@ -244,20 +259,20 @@
 (setq ac-source-yasnippet nil)
 
 ;; auto-complete
-(add-to-list 'load-path "~/.emacs.d/elisp/auto-complete/lib/popup")
+;; (add-to-list 'load-path "~/.emacs.d/elisp/auto-complete/lib/popup")
 
 ;; iedit
-(require 'iedit)
+;; (require 'iedit)
 (global-set-key (kbd "C-. C-e") 'iedit-mode) 
 
 
 ;; flycheck
-(require 'flycheck)
+;; (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (global-set-key (kbd "C-. f") 'flycheck-mode) 
 (eval-after-load 'flycheck
   '(progn
-	   (require 'flycheck-google-cpplint)
+	   ;; (require 'flycheck-google-cpplint)
 	   ;; Add Google C++ Style checker.
 	   ;; In default, syntax checked by Clang and Cppcheck.
 	   (flycheck-add-next-checker 'c/c++-clang
@@ -306,7 +321,6 @@
 ;; trigger completion at interesting places, such as after scope operator
 ;;     std::|
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
-
 
 
 ;; ;; ecb
@@ -382,6 +396,7 @@ buffer is not visiting a file."
 (global-set-key (kbd "C-S-<f8>") 'flyspell-mode)
 (global-set-key (kbd "M-S-<f8>") 'flyspell-buffer)
 (global-set-key (kbd "C-<f8>") 'flyspell-check-previous-highlighted-word)
+
 (defun flyspell-check-next-highlighted-word ()
 	"Custom function to spell check next highlighted word"
 	(interactive)
@@ -391,7 +406,7 @@ buffer is not visiting a file."
 (global-set-key (kbd "M-<f8>") 'flyspell-check-next-highlighted-word)
 
 ;; android-mode
-(require 'android-mode)
+;; (require 'android-mode)
 (global-set-key (kbd "C-<f12>") 'android-ant-debug)
 
 ;; CEDET
@@ -402,6 +417,9 @@ buffer is not visiting a file."
 	(lambda ()
 		(add-to-list 'gud-jdb-classpath "~/android-sdk/platforms/android-17/android.jar")
 		))
+
+;; cmake mode
+(require 'cmake-mode)
 
 ;; etags
 (defun find-file-upwards (file-to-find)
@@ -514,7 +532,7 @@ or nil if not found."
 (add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
 
 ;; zotelo (for zotero)
-(require 'zotelo)
+;; (require 'zotelo)
 (add-hook 'TeX-mode-hook 'zotelo-minor-mode)
 (add-hook 'org-mode-hook 'zotelo-minor-mode)
 
@@ -608,8 +626,6 @@ or nil if not found."
 ;; php mode
 (require 'php-mode)
 
-;; cmake mode
-(require 'cmake-mode)
 
 ;; default files
 (add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode)) ;;cmake
@@ -624,23 +640,3 @@ or nil if not found."
 
 ;; opencl files with c-mode syntax
 (setq auto-mode-alist (cons '("\\.cl$" . c-mode) auto-mode-alist))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ecb-options-version "2.40")
- '(safe-local-variable-values (quote ((zotero-collection . #("0" 0 1 (name "*ALL*")))))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-;; ergoemacs
-;; (require 'ergoemacs-mode)
-;; (setq ergoemacs-theme nil)
-;; (setq ergoemacs-keyboard-layout "es-dv-1")
-;; (ergoemacs-mode 1)

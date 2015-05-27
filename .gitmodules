@@ -1,60 +1,12 @@
 [submodule "elisp/zotelo"]
 	path = elisp/zotelo
 	url = git@github.com:vitoshka/zotelo.git
-[submodule "elisp/markdown-mode"]
-	path = elisp/markdown-mode
-	url = git://jblevins.org/git/markdown-mode.git
-[submodule "yasnippet"]
-	path = elisp/yasnippet
-	url = https://github.com/capitaomorte/yasnippet.git
-[submodule "autocomplete"]
-	path = elisp/auto-complete
-	url = https://github.com/auto-complete/auto-complete.git
-[submodule "elisp/cpputils-cmake"]
-	path = elisp/cpputils-cmake
-	url = https://github.com/redguardtoo/cpputils-cmake.git
-[submodule "elisp/auto-complete-c-headers"]
-	path = elisp/auto-complete-c-headers
-	url = https://github.com/mooz/auto-complete-c-headers.git
-[submodule "elisp/flycheck"]
-	path = elisp/flycheck
-	url = https://github.com/flycheck/flycheck.git
-[submodule "elisp/ergoemacs-mode"]
-	path = elisp/ergoemacs-mode
-	url = https://github.com/ergoemacs/ergoemacs-mode.git
-[submodule "elisp/iedit"]
-	path = elisp/iedit
-	url = https://github.com/victorhge/iedit.git
-[submodule "elisp/dash.el"]
-	path = elisp/dash.el
-	url = https://github.com/magnars/dash.el.git
 [submodule "elisp/ac-irony"]
 	path = elisp/ac-irony
 	url = https://github.com/Sarcasm/ac-irony.git
-[submodule "elisp/elisp-json-rpc"]
-	path = elisp/elisp-json-rpc
-	url = https://github.com/skeeto/elisp-json-rpc.git
-[submodule "elisp/emacs-epc"]
-	path = elisp/emacs-epc
-	url = https://github.com/kiwanami/emacs-epc.git
-[submodule "elisp/emacs-deferred"]
-	path = elisp/emacs-deferred
-	url = https://github.com/kiwanami/emacs-deferred.git
-[submodule "elisp/emacs-ctable"]
-	path = elisp/emacs-ctable
-	url = https://github.com/kiwanami/emacs-ctable.git
-[submodule "elisp/emacs-python-environment"]
-	path = elisp/emacs-python-environment
-	url = https://github.com/tkf/emacs-python-environment.git
-[submodule "elisp/s.el"]
-	path = elisp/s.el
-	url = https://github.com/magnars/s.el.git
-[submodule "elisp/f.el"]
-	path = elisp/f.el
-	url = https://github.com/rejeep/f.el.git
 [submodule "elisp/Fill-Column-Indicator"]
 	path = elisp/Fill-Column-Indicator
 	url = https://github.com/alpaker/Fill-Column-Indicator.git
-[submodule "elisp/flycheck-google-cpplint"]
-	path = elisp/flycheck-google-cpplint
-	url = https://github.com/flycheck/flycheck-google-cpplint.git
+[submodule "elisp/org-reveal"]
+	path = elisp/org-reveal
+	url = https://github.com/yjwen/org-reveal.git
