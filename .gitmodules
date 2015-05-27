@@ -1,15 +1,9 @@
 [submodule "elisp/zotelo"]
 	path = elisp/zotelo
 	url = git@github.com:vitoshka/zotelo.git
-[submodule "org-mode"]
-	path = elisp/org-mode
-	url = git://orgmode.org/org-mode.git
 [submodule "elisp/markdown-mode"]
 	path = elisp/markdown-mode
 	url = git://jblevins.org/git/markdown-mode.git
-[submodule "elisp/org-reveal"]
-	path = elisp/org-reveal
-	url = https://github.com/yjwen/org-reveal.git
 [submodule "yasnippet"]
 	path = elisp/yasnippet
 	url = https://github.com/capitaomorte/yasnippet.git
@@ -19,9 +13,6 @@
 [submodule "elisp/cpputils-cmake"]
 	path = elisp/cpputils-cmake
 	url = https://github.com/redguardtoo/cpputils-cmake.git
-[submodule "elisp/irony-mode"]
-	path = elisp/irony-mode
-	url = https://github.com/Sarcasm/irony-mode.git
 [submodule "elisp/auto-complete-c-headers"]
 	path = elisp/auto-complete-c-headers
 	url = https://github.com/mooz/auto-complete-c-headers.git
@@ -37,30 +28,12 @@
 [submodule "elisp/dash.el"]
 	path = elisp/dash.el
 	url = https://github.com/magnars/dash.el.git
-[submodule "elisp/company-irony"]
-	path = elisp/company-irony
-	url = https://github.com/Sarcasm/company-irony.git
 [submodule "elisp/ac-irony"]
 	path = elisp/ac-irony
 	url = https://github.com/Sarcasm/ac-irony.git
-[submodule "elisp/company-mode"]
-	path = elisp/company-mode
-	url = https://github.com/company-mode/company-mode.git
-[submodule "elisp/company-c-headers"]
-	path = elisp/company-c-headers
-	url = https://github.com/randomphrase/company-c-headers.git
-[submodule "elisp/anaconda-mode"]
-	path = elisp/anaconda-mode
-	url = https://github.com/proofit404/anaconda-mode.git
-[submodule "elisp/company-anaconda"]
-	path = elisp/company-anaconda
-	url = https://github.com/proofit404/company-anaconda.git
 [submodule "elisp/elisp-json-rpc"]
 	path = elisp/elisp-json-rpc
 	url = https://github.com/skeeto/elisp-json-rpc.git
-[submodule "elisp/emacs-jedi"]
-	path = elisp/emacs-jedi
-	url = https://github.com/tkf/emacs-jedi.git
 [submodule "elisp/emacs-epc"]
 	path = elisp/emacs-epc
 	url = https://github.com/kiwanami/emacs-epc.git

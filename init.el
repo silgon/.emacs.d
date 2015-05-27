@@ -19,7 +19,7 @@
 
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+             '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
 
 ;; my default path for plugins - adding all subfolders
@@ -282,24 +282,25 @@
 
 
 
-(require 'irony)
+;; (require 'irony)
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
 
-(require 'company)
+;; (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 
-(require 'company-irony)
-(require 'company-c-headers)
+;; (require 'company-irony)
+;; (require 'company-c-headers)
 ;; (require 'company-inf-python)
 
-(require 'company-anaconda)
-
-(add-to-list 'company-backends 'company-anaconda)
-(add-to-list 'company-backends 'company-c-headers)
-(add-to-list 'company-backends 'company-irony)
-
+;; (require 'company-anaconda)
+(add-hook 'python-mode-hook 'anaconda-mode)
+(eval-after-load 'company '(progn
+				 (add-to-list 'company-backends 'company-anaconda)
+				 (add-to-list 'company-backends 'company-c-headers)
+				 (add-to-list 'company-backends 'company-irony)
+))
 
 ;; (optional) adds CC special commands to `company-begin-commands' in order to
 ;; trigger completion at interesting places, such as after scope operator
