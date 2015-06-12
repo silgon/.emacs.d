@@ -270,13 +270,13 @@
 ;; (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (global-set-key (kbd "C-. f") 'flycheck-mode) 
-(eval-after-load 'flycheck
-  '(progn
-	   ;; (require 'flycheck-google-cpplint)
-	   ;; Add Google C++ Style checker.
-	   ;; In default, syntax checked by Clang and Cppcheck.
-	   (flycheck-add-next-checker 'c/c++-clang
-		   '(warnings-only . c/c++-googlelint))))
+;; (eval-after-load 'flycheck
+;;   '(progn
+;; 	   ;; (require 'flycheck-google-cpplint)
+;; 	   ;; Add Google C++ Style checker.
+;; 	   ;; In default, syntax checked by Clang and Cppcheck.
+;; 	   (flycheck-add-next-checker 'c/c++-clang
+;; 		   '(warnings-only . c/c++-googlelint))))
 
 (custom-set-variables
 	'(flycheck-c/c++-googlelint-executable "cpplint")
@@ -549,7 +549,7 @@ or nil if not found."
 		 ("\\subsection{%s}" . "\\subsection*{%s}")
 		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
 	)
-(add-to-list 'org-export-latex-classes
+(add-to-list 'org-latex-classes
 	'("myreport"
 		 "\\documentclass{scrreprt}
 \\usepackage[utf8]{inputenc}
