@@ -25,7 +25,7 @@
 (setq inhibit-startup-message t)
 
 (require 'package)
-(setq package-list '(auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony company-c-headers company-anaconda iedit auto-complete auto-complete-c-headers irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony))
+(setq package-list '(auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony company-c-headers company-anaconda iedit auto-complete auto-complete-c-headers irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -281,7 +281,8 @@
 (custom-set-variables
 	'(flycheck-c/c++-googlelint-executable "cpplint")
 )
-
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 ;; ;; ccputils
 ;; (require 'cpputils-cmake)
 ;; (add-hook 'c-mode-common-hook
