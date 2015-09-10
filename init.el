@@ -104,7 +104,7 @@
 (eval-after-load "org"
 	'(progn
 		 (require 'ox-md nil t)
-		 (require 'ox-reveal nil t)
+		 ;; (require 'ox-reveal nil t)
 		 (require 'ox-beamer nil t)
 		 ;; open with evince
 		 (setcdr (assoc "\\.pdf\\'" org-file-apps) "evince %s")
@@ -537,10 +537,10 @@ or nil if not found."
 (add-hook 'org-mode-hook 'zotelo-minor-mode)
 
 (require 'org-latex)
-(unless (boundp 'org-export-latex-classes)
-	(setq org-export-latex-classes nil))
+(unless (boundp 'org-latex-classes)
+	(setq org-latex-classes nil))
 ;; types in org-mode
-(add-to-list 'org-export-latex-classes
+(add-to-list 'org-latex-classes
 	'("report"
 		 "\\documentclass{report}"
 		 ;; ("\\part{%s}" . "\\part*{%s}")
