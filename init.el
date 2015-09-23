@@ -270,17 +270,10 @@
 ;; (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (global-set-key (kbd "C-. f") 'flycheck-mode) 
-;; (eval-after-load 'flycheck
-;;   '(progn
-;; 	   ;; (require 'flycheck-google-cpplint)
-;; 	   ;; Add Google C++ Style checker.
-;; 	   ;; In default, syntax checked by Clang and Cppcheck.
-;; 	   (flycheck-add-next-checker 'c/c++-clang
-;; 		   '(warnings-only . c/c++-googlelint))))
 
-(custom-set-variables
-	'(flycheck-c/c++-googlelint-executable "cpplint")
-)
+;; (custom-set-variables
+;; 	'(flycheck-c/c++-googlelint-executable "cpplint")
+;; )
 (eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 ;; ;; ccputils
@@ -322,27 +315,6 @@
 ;; trigger completion at interesting places, such as after scope operator
 ;;     std::|
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
-
-
-;; ;; ecb
-;; (add-to-list 'load-path "~/.emacs.d/elisp/ecb/")
-;; (require 'ecb)
-;; (require 'ecb-autoloads)
-;; (setq stack-trace-on-error t) ;; this prevent some error (maybe it's not right to do it)
-;; (setq ecb-layout-name "left-analyse")
-;; (setq ecb-tip-of-the-day nil) 
-;; ;;; activate and deactivate ecb
-;; (global-set-key (kbd "C-. ,") 'ecb-activate)
-;; (global-set-key (kbd "C-. C-,") 'ecb-deactivate)
-;; ;;; show/hide ecb window
-;; (global-set-key (kbd "C-. ;") 'ecb-show-ecb-windows)
-;; (global-set-key (kbd "C-. C-;") 'ecb-hide-ecb-windows)
-;; ;;; quick navigation between ecb windows
-;; (global-set-key (kbd "C-. 1") 'ecb-goto-window-edit1)
-;; (global-set-key (kbd "C-. 2") 'ecb-goto-window-directories)
-;; (global-set-key (kbd "C-. 3") 'ecb-goto-window-sources)
-;; (global-set-key (kbd "C-. 4") 'ecb-goto-window-methods)
-;; (global-set-key (kbd "C-. 5") 'ecb-goto-window-compilation)
 
 ;; indentiation stuff (maybe some variable is missing for other language
 (setq-default indent-tabs-mode nil)
@@ -410,9 +382,6 @@ buffer is not visiting a file."
 ;; (require 'android-mode)
 (global-set-key (kbd "C-<f12>") 'android-ant-debug)
 
-;; CEDET
-;; (load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
-
 (setq android-mode-sdk-dir "~/programming/android/")
 (add-hook 'gud-mode-hook
 	(lambda ()
@@ -448,7 +417,6 @@ or nil if not found."
 ;;(tabkey2-mode t)
 
 
-;; (add-to-list 'load-path "~/.emacs.d/elisp/web-mode/")
 ;; (require 'web-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
@@ -604,25 +572,6 @@ or nil if not found."
 
 ;;(setq TeX-PDF-mode t)
 (setq preview-image-type 'png)
-;; org to latex
-;; (add-to-list 'org-export-latex-classes
-;;              '("article"
-;;                "\\documentclass{article}"
-;;                ("\\section{%s}" . "\\section*{%s}")
-;;                ("\\subsection{%s}" . "\\subsection*{%s}")
-;;                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-;;                ("\\subsubsubsection{%s}" . "\\subsubsubsection*{%s}")
-;;                ("\\paragraph{%s}" . "\\paragraph*{%s}")
-;;                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-
-;; aliases
-;; (defalias 'html-mode 'nxml-mode)
-;; (defalias 'xml-mode 'nxml-mode)
-
-;; major modes
-;; (add-to-list 'load-path "~/.emacs.d/elisp/uml/")
-;; (require 'plantuml-mode)
 
 ;; php mode
 (require 'php-mode)
