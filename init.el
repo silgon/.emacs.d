@@ -25,7 +25,7 @@
 (setq inhibit-startup-message t)
 
 (require 'package)
-(setq package-list '(auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony company-c-headers company-anaconda iedit auto-complete auto-complete-c-headers irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode))
+(setq package-list '(auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -300,15 +300,15 @@
 (add-hook 'after-init-hook 'global-company-mode)
 
 ;; (require 'company-irony)
-;; (require 'company-c-headers)
 ;; (require 'company-inf-python)
+(require 'company-irony-c-headers)
 
 ;; (require 'company-anaconda)
 (add-hook 'python-mode-hook 'anaconda-mode)
 (eval-after-load 'company '(progn
-				 (add-to-list 'company-backends 'company-anaconda)
-				 (add-to-list 'company-backends 'company-c-headers)
-				 (add-to-list 'company-backends 'company-irony)
+           (add-to-list 'company-backends 'company-anaconda)
+           (add-to-list 'company-backends 'company-irony)
+           (add-to-list 'company-backends '(company-irony-c-headers company-irony))
 ))
 
 ;; (optional) adds CC special commands to `company-begin-commands' in order to
