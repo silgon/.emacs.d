@@ -310,6 +310,7 @@
            (add-to-list 'company-backends 'company-irony)
            (add-to-list 'company-backends '(company-irony-c-headers company-irony))
 ))
+(setq irony-additional-clang-options "-std=c++11")
 
 ;; (optional) adds CC special commands to `company-begin-commands' in order to
 ;; trigger completion at interesting places, such as after scope operator
