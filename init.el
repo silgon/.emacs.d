@@ -316,6 +316,7 @@
 ;; trigger completion at interesting places, such as after scope operator
 ;;     std::|
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 ;; indentiation stuff (maybe some variable is missing for other language
 (setq-default indent-tabs-mode nil)
