@@ -25,7 +25,7 @@
 (setq inhibit-startup-message t)
 
 (require 'package)
-(setq package-list '(auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers))
+(setq package-list '(auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -208,20 +208,21 @@
 (require 'epa-file)
 ;; (epa-file-enable)
 
+(global-set-key (kbd "C-. C-m") 'idomenu) 
 ;; navigation
 (global-set-key (kbd "C-. C-p") 'beginning-of-defun) 
 (global-set-key (kbd "C-. C-n") 'end-of-defun) 
 ;; hs for navigation
 (defun hs-and-shortcuts ()
-	"Custom function to spell check next highlighted word"
-    (local-set-key (kbd "C-. C-S-s") 'hs-hide-block)
-    (local-set-key (kbd "C-. C-s") 'hs-show-block)
-    (local-set-key (kbd "C-. C-S-l") 'hs-hide-level)
-    (local-set-key (kbd "C-. C-S-a") 'hs-hide-all)
-    (local-set-key (kbd "C-. C-a") 'hs-show-all)
+	"Custom function to hide and show blocks"
+    (local-set-key (kbd "C-. C-s") 'hs-toggle-hiding)
+    (local-set-key (kbd "C-. C-l") 'hs-hide-level)
+    (local-set-key (kbd "C-. x C-h") 'hs-hide-all)
+    (local-set-key (kbd "C-. x C-s") 'hs-show-all)
     (hs-minor-mode t)
 )
 (add-hook 'c-mode-common-hook 'hs-and-shortcuts)
+(add-hook 'python-mode-hook 'hs-and-shortcuts)
 
 
 ;; sage mode
