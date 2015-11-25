@@ -215,7 +215,9 @@
 ;; hs for navigation
 (defun hs-and-shortcuts ()
 	"Custom function to hide and show blocks"
-    (local-set-key (kbd "C-. C-s") 'hs-toggle-hiding)
+    ;; (local-set-key (kbd "C-. C-s") 'hs-toggle-hiding)
+    (local-set-key (kbd "C-. C-h") 'hs-hide-block)
+    (local-set-key (kbd "C-. C-s") 'hs-show-block)
     (local-set-key (kbd "C-. C-l") 'hs-hide-level)
     (local-set-key (kbd "C-. x C-h") 'hs-hide-all)
     (local-set-key (kbd "C-. x C-s") 'hs-show-all)
