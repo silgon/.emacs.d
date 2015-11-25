@@ -25,7 +25,7 @@
 (setq inhibit-startup-message t)
 
 (require 'package)
-(setq package-list '(auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu))
+(setq package-list '(auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -220,10 +220,23 @@
     (local-set-key (kbd "C-. x C-h") 'hs-hide-all)
     (local-set-key (kbd "C-. x C-s") 'hs-show-all)
     (hs-minor-mode t)
-)
+    )
 (add-hook 'c-mode-common-hook 'hs-and-shortcuts)
-(add-hook 'python-mode-hook 'hs-and-shortcuts)
 
+(defun hide-body-recenter ()
+    (interactive)
+    (hide-body)
+    (recenter))
+(defun hs-python-and-shortcuts ()
+    (setq outline-regexp "[^ \t\n]\\|[ \t]*\\(def[ \t]+\\|class[ \t]+\\)")
+    (outline-minor-mode t)
+    ;; (local-set-key (kbd "C-. C-s") 'outline-cycle) ;; not working well
+    (local-set-key (kbd "C-. C-s") 'show-entry) ;; not working well
+    (local-set-key (kbd "C-. C-h") 'hide-entry) ;; not working well
+    (local-set-key (kbd "C-. C-a") 'show-all)  ;; not necessary because it's in global already
+    (local-set-key (kbd "C-. C-l") 'hide-body-recenter)
+    )
+(add-hook 'python-mode-hook 'hs-python-and-shortcuts)
 
 ;; sage mode
 (when (file-exists-p "/usr/bin/sage")
