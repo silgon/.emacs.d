@@ -1,6 +1,3 @@
-[submodule "elisp/zotelo"]
-	path = elisp/zotelo
-	url = git@github.com:vitoshka/zotelo.git
 [submodule "elisp/ac-irony"]
 	path = elisp/ac-irony
 	url = https://github.com/Sarcasm/ac-irony.git

@@ -523,6 +523,8 @@ or nil if not found."
 (add-hook 'TeX-mode-hook 'zotelo-minor-mode)
 (add-hook 'org-mode-hook 'zotelo-minor-mode)
 
+(setq org-latex-caption-above nil)  ; Table now has the caption below
+
 (require 'org-latex)
 (unless (boundp 'org-latex-classes)
 	(setq org-latex-classes nil))
