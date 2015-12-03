@@ -7,6 +7,8 @@
 ;;   sudo pip install pylint json-rpc rope jedi cpplint
 ;; and of course, don't forget to download the git submodules
 
+;; title of my emacs
+(setq-default frame-title-format '("%f [%m]"))
 ;;; code:
 ;; emacs server
 (server-start)
