@@ -27,7 +27,7 @@
 (setq inhibit-startup-message t)
 
 (require 'package)
-(setq package-list '(auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic))
+(setq package-list '(auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic hide-comnt))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -224,6 +224,7 @@
     (local-set-key (kbd "C-. x C-h") 'hs-hide-all)
     (local-set-key (kbd "C-. x C-s") 'hs-show-all)
     (hs-minor-mode t)
+    (local-set-key (kbd "C-. C-g") 'hide/show-comments-toggle)
     )
 (add-hook 'c-mode-common-hook 'hs-and-shortcuts)
 
