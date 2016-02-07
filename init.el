@@ -58,6 +58,8 @@
 	'(define-key flyspell-mode-map (kbd "C-.") nil))
 (eval-after-load "flyspell"
 	'(define-key flyspell-mode-map (kbd "C-,") nil))
+(eval-after-load "org"
+	'(define-key org-mode-map (kbd "C-,") nil))
 (eval-after-load "php-mode"
 	'(define-key php-mode-map (kbd "C-.") nil))
 
