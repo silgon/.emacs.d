@@ -228,6 +228,7 @@
     (local-set-key (kbd "C-. x C-h") 'hs-hide-all)
     (local-set-key (kbd "C-. x C-s") 'hs-show-all)
     (hs-minor-mode t)
+    (hide/show-comments)
     (local-set-key (kbd "C-. C-g") 'hide/show-comments-toggle)
     )
 (add-hook 'c-mode-common-hook 'hs-and-shortcuts)
