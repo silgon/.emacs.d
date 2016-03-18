@@ -27,7 +27,7 @@
 (setq inhibit-startup-message t)
 
 (require 'package)
-(setq package-list '(auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic hide-comnt))
+(setq package-list '(auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic hide-comnt ess))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -618,3 +618,11 @@ or nil if not found."
 
 ;; opencl files with c-mode syntax
 (setq auto-mode-alist (cons '("\\.cl$" . c-mode) auto-mode-alist))
+
+(require 'ess-site)
+
+
+;; greek letters
+(load "~/.emacs.d/julia_abbrevs.el")
+(setq save-abbrevs nil)
+(add-hook 'julia-mode-hook 'abbrev-mode)
