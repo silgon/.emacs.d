@@ -318,7 +318,7 @@
 ;; (require 'irony)
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
+;; (add-hook 'objc-mode-hook 'irony-mode)
 
 ;; (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
@@ -442,28 +442,6 @@ or nil if not found."
 ;; tabkey2 it seems it's really problematic, I deactivated
 ;;(tabkey2-mode t)
 
-
-;; (require 'web-mode)
-;; (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.ctp?\\'" . web-mode))
-
-;; (defun web-mode-hook ()
-;;   "Hooks for Web mode."
-;;   ;; (setq web-mode-markup-indent-offset 2)
-;; )
-;; (add-hook 'web-mode-hook  'web-mode-hook)
-;; (defun yas-web-mode-fix ()
-;;   (web-mode-buffer-refresh)
-;;   (indent-for-tab-command))
-;; (setq yas/after-exit-snippet-hook 'yas-web-mode-fix)
-
 (when (equal emacs-major-version 24)
 	;; if emacs 24 then we can use the great org-babel mode
 	(org-babel-do-load-languages
@@ -536,41 +514,6 @@ or nil if not found."
 (require 'org-latex)
 (unless (boundp 'org-latex-classes)
 	(setq org-latex-classes nil))
-;; types in org-mode
-(add-to-list 'org-latex-classes
-	'("report"
-		 "\\documentclass{report}"
-		 ;; ("\\part{%s}" . "\\part*{%s}")
-		 ("\\chapter{%s}" . "\\chapter*{%s}")
-		 ("\\section{%s}" . "\\section*{%s}")
-		 ("\\subsection{%s}" . "\\subsection*{%s}")
-		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
-	)
-(add-to-list 'org-latex-classes
-	'("myreport"
-		 "\\documentclass{scrreprt}
-\\usepackage[utf8]{inputenc}
-\\usepackage[T1]{fontenc}
-\\usepackage{fixltx2e}
-\\usepackage{graphicx}
-\\usepackage{longtable}
-\\usepackage{float}
-\\usepackage{wrapfig}
-\\usepackage{soul}
-\\usepackage{textcomp}
-\\usepackage{marvosym}
-\\usepackage{amssymb}
-\\usepackage{amsmath}
-\\usepackage{hyperref}
-[NO-DEFAULT-PACKAGES]
-[PACKAGES]
-[EXTRA]
-"	
-		 ("\\chapter{%s}" . "\\chapter*{%s}")
-		 ("\\section{%s}" . "\\section*{%s}")
-		 ("\\subsection{%s}" . "\\subsection*{%s}")
-		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
-	)
 
 ;; if X11 or terminal
 (case window-system
@@ -602,7 +545,7 @@ or nil if not found."
 (setq preview-image-type 'png)
 
 ;; php mode
-(require 'php-mode)
+;; (require 'php-mode)
 
 
 ;; default files
@@ -626,3 +569,27 @@ or nil if not found."
 (load "~/.emacs.d/julia_abbrevs.el")
 (setq save-abbrevs nil)
 (add-hook 'julia-mode-hook 'abbrev-mode)
+
+
+
+;; (require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.php?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ctp?\\'" . web-mode))
+
+(defun web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-markup-indent-offset 4)
+)
+(add-hook 'web-mode-hook  'web-mode-hook)
+(defun yas-web-mode-fix ()
+  (web-mode-buffer-refresh)
+  (indent-for-tab-command))
+(setq yas/after-exit-snippet-hook 'yas-web-mode-fix)
