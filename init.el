@@ -316,8 +316,17 @@
 
 
 ;; (require 'irony)
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
+(defun irony-hooks ()
+  "Enable the hooks in the preferred order: 'yas -> auto-complete -> irony'."
+  ;; if yas is not set before (auto-complete-mode 1), overlays may persist after
+  ;; an expansion.
+  ;; (yas/minor-mode-on)
+  ;; (auto-complete-mode 1)
+  (when (member major-mode irony-supported-major-modes)
+    (irony-mode 1)))
+
+(add-hook 'c++-mode-hook 'irony-hooks)
+(add-hook 'c-mode-hook 'irony-hooks)
 ;; (add-hook 'objc-mode-hook 'irony-mode)
 
 ;; (require 'company)
@@ -335,6 +344,13 @@
            (add-to-list 'company-backends '(company-irony-c-headers company-irony))
 ))
 (setq irony-additional-clang-options '("-std=c++11"))
+
+
+(add-hook 'php-mode-hook
+          '(lambda ()
+             (require 'company-php)
+             (company-mode t)
+             (add-to-list 'company-backends 'company-ac-php-backend)))
 
 ;; (optional) adds CC special commands to `company-begin-commands' in order to
 ;; trigger completion at interesting places, such as after scope operator
