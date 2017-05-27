@@ -6,13 +6,14 @@
 ;;   sudo apt-get install clang libclang-dev # in the case of ubuntu
 ;;   sudo pip install pylint json-rpc rope jedi cpplint
 ;; and of course, don't forget to download the git submodules
+;; for php:
+;; sudo apt-get install cscope php7
 
 ;; title of my emacs
 (setq-default frame-title-format '("%f [%m]"))
 ;;; code:
 ;; emacs server
 (server-start)
-
 
 ;; auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony
 ;; company-c-headers company-anaconda iedit auto-complete auto-complete-c-headers
@@ -27,7 +28,7 @@
 (setq inhibit-startup-message t)
 
 (require 'package)
-(setq package-list '(auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic hide-comnt ess))
+(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic hide-comnt ess ido-vertical-mode find-file-in-project company-web company-php ac-php))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -35,11 +36,10 @@
 ; fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
-
 ; install the missing packages
 (dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-install package)))
+ (unless (package-installed-p package)
+   (package-install package)))
 
 ;; my default path for plugins - adding all subfolders
 (let ((base "~/.emacs.d/elisp/"))
@@ -345,21 +345,24 @@
            (add-to-list 'company-backends 'company-anaconda)
            (add-to-list 'company-backends 'company-irony)
            (add-to-list 'company-backends '(company-irony-c-headers company-irony))
-))
+                               ))
 (setq irony-additional-clang-options '("-std=c++11"))
-
-
-(add-hook 'php-mode-hook
-          '(lambda ()
-             (require 'company-php)
-             (company-mode t)
-             (add-to-list 'company-backends 'company-ac-php-backend)))
 
 ;; (optional) adds CC special commands to `company-begin-commands' in order to
 ;; trigger completion at interesting places, such as after scope operator
 ;;     std::|
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+
+(require 'php-mode)
+(add-hook 'php-mode-hook
+          '(lambda ()
+             (require 'company-php)
+             (company-mode t)
+             (ac-php-core-eldoc-setup) ;; enable eldoc
+             (make-local-variable 'company-backends)
+             (add-to-list 'company-backends 'company-ac-php-backend)))
 
 ;; indentiation stuff (maybe some variable is missing for other language
 (setq-default indent-tabs-mode nil)
@@ -384,6 +387,10 @@
 (setq ido-everywhere t)
 (require 'ido)
 (ido-mode t)
+(ido-vertical-mode 1)
+(setq ido-vertical-define-keys 'C-n-and-C-p-only)
+(setq ffip-prefer-ido-mode t)
+(global-set-key (kbd "C-x C-g") 'find-file-in-project)
 
 ;; tramp open files as sudoer inside emacs
 (require 'tramp)
@@ -398,7 +405,7 @@ buffer is not visiting a file."
       (find-file (concat "/sudo:root@localhost:"
                          (ido-read-file-name "Find file(as root): ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
-(global-set-key (kbd "C-x C-g") 'sudo-edit)
+;; (global-set-key (kbd "C-x C-g") 'sudo-edit)
 ;; advices ido mode to use root with tramp
 (defadvice ido-find-file (after find-file-sudo activate)
   "Find file as root if necessary."
@@ -530,7 +537,7 @@ buffer is not visiting a file."
 
 (setq org-latex-caption-above nil)  ; Table now has the caption below
 
-(require 'org-latex)
+;; (require 'org-latex)
 (unless (boundp 'org-latex-classes)
 	(setq org-latex-classes nil))
 
