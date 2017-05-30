@@ -26,9 +26,9 @@
                        '(font . "DejaVu Sans Mono-11"))
 ;; no startup message
 (setq inhibit-startup-message t)
-
+;; install the packages I require
 (require 'package)
-(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic hide-comnt ess ido-vertical-mode find-file-in-project company-web company-php ac-php php-mode))
+(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic hide-comnt ess ido-vertical-mode find-file-in-project company-web company-php ac-php php-mode minizinc-mode))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -621,3 +621,6 @@ buffer is not visiting a file."
   (web-mode-buffer-refresh)
   (indent-for-tab-command))
 (setq yas/after-exit-snippet-hook 'yas-web-mode-fix)
+
+(add-to-list 'auto-mode-alist '("\\.mzn?\\'" . minizinc-mode))
+(add-to-list 'auto-mode-alist '("\\.dzn?\\'" . minizinc-mode))
