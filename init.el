@@ -610,6 +610,7 @@ buffer is not visiting a file."
 (add-to-list 'auto-mode-alist '("\\.ctp?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.php?\\'" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.blade\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tmpl?\\'" . web-mode))
 
 (setq web-mode-enable-engine-detection t)
 
