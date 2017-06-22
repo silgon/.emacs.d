@@ -610,7 +610,7 @@ buffer is not visiting a file."
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.php?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ctp?\\'" . web-mode))
-
+(setq web-mode-enable-engine-detection t)
 (defun web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 4)
