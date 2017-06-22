@@ -28,7 +28,7 @@
 (setq inhibit-startup-message t)
 ;; install the packages I require
 (require 'package)
-(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic hide-comnt ess ido-vertical-mode find-file-in-project company-web company-php ac-php minizinc-mode))
+(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic hide-comnt ess ido-vertical-mode find-file-in-project company-web company-php ac-php php-mode minizinc-mode))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -356,6 +356,8 @@
 
 
 (require 'php-mode)
+;; (eval-after-load 'php-mode
+;;   '(require 'php-ext))
 (add-hook 'php-mode-hook
           '(lambda ()
              (require 'company-php)
@@ -571,12 +573,9 @@ buffer is not visiting a file."
 ;;(setq TeX-PDF-mode t)
 (setq preview-image-type 'png)
 
-;; php mode
-;; (require 'php-mode)
-
-
 ;; default files
 (add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode)) ;;cmake
+(add-to-list 'auto-mode-alist '(".env" . conf-mode)) ;;cmake
 
 ;;ROS
 (add-to-list 'auto-mode-alist '("\\.launch$" . nxml-mode)) ;;cakephp
@@ -608,9 +607,12 @@ buffer is not visiting a file."
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.php?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ctp?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.php?\\'" . php-mode))
+(add-to-list 'auto-mode-alist '("\\.blade\\.php\\'" . web-mode))
+
 (setq web-mode-enable-engine-detection t)
+
 (defun web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 4)
