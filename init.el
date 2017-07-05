@@ -613,6 +613,7 @@ buffer is not visiting a file."
 (add-to-list 'auto-mode-alist '("\\.tmpl?\\'" . web-mode))
 
 (setq web-mode-enable-engine-detection t)
+(setq web-mode-enable-auto-indentation nil)
 
 (defun web-mode-hook ()
   "Hooks for Web mode."
