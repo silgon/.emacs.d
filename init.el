@@ -632,7 +632,7 @@ buffer is not visiting a file."
 ;; multicursor mode
 (global-set-key (kbd "C-c C-,") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c C-.") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-a") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c a") 'mc/mark-all-like-this)
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
   (interactive)
