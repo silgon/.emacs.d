@@ -630,6 +630,18 @@ buffer is not visiting a file."
 
 
 ;; multicursor mode
-(global-set-key (kbd "C-c ,") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-c .") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c a") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c C-,") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c C-.") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-a") 'mc/mark-all-like-this)
+(defun eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+(insert (current-kill 0)))))
+
+(global-set-key (kbd "C-c e") 'eval-and-replace)
+
