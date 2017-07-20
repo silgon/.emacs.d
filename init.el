@@ -101,8 +101,8 @@
 
 ;; auctex
 ;; for this to run, you'll need the installation in root (I'll try to do it later in the git repository)
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
+;; (load "auctex.el" nil t t)
+;; (load "preview-latex.el" nil t t)
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
@@ -545,8 +545,8 @@ buffer is not visiting a file."
 
 ;; if X11 or terminal
 (require 'cl)
-(case window-system
-	(x 
+(if (or (eq window-system 'x) (eq window-system 'w32))
+    (progn
 		;; color theme
 		(require 'color-theme)
 		(require 'color-theme-mycomidia)
@@ -564,7 +564,7 @@ buffer is not visiting a file."
 		(global-set-key [f11] 'toggle-fullscreen)
 		(display-time-mode t)
 		)
-	(otherwise 
+	(progn
 		(setq mumamo-background-colors nil)
 		)
 	)
