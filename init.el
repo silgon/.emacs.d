@@ -106,6 +106,12 @@
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
+;; windows have some problems with ghostscript (gs) after installation of Miktex
+;; using gs from https://www.ghostscript.com/
+(if (eq window-system 'w32)
+    (setq preview-gs-command "C:\\Program Files\\gs\\gs9.21\\bin\\gswin64c.exe")
+    )
+
 
 ;; org-mode and org-reveal
 (add-to-list 'load-path "~/.emacs.d/elisp/org-mode/lisp")
