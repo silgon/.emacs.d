@@ -28,7 +28,7 @@
 (setq inhibit-startup-message t)
 ;; install the packages I require
 (require 'package)
-(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic hide-comnt ess ido-vertical-mode find-file-in-project company-web php-mode company-php ac-php minizinc-mode multiple-cursors dockerfile-mode gitignore-mode))
+(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic hide-comnt ess ido-vertical-mode find-file-in-project company-web php-mode company-php ac-php minizinc-mode multiple-cursors dockerfile-mode gitignore-mode ido-occur))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -150,6 +150,7 @@
 ;; miscellaneous
 (global-set-key (kbd "C-x c") 'calendar)
 (global-set-key (kbd "C-x t") 'eshell)
+(global-set-key (kbd "C-. s") 'ido-occur)
 (global-set-key (kbd "C-. C-c") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-. C-.") 'global-linum-mode) ;; number of line
 ;; (global-set-key (kbd "C-. C-i") 'irc)
@@ -247,16 +248,16 @@
     (hide-body)
     (recenter))
 (defun hs-python-and-shortcuts ()
-    (setq outline-regexp "[^ \t\n]\\|[ \t]*\\(def[ \t]+\\|class[ \t]+\\)")
+    (setq outline-regexp "[ \t]*\\(def\\|class\\)")
     (outline-minor-mode t)
-    ;; (local-set-key (kbd "C-. C-s") 'outline-cycle) ;; not working well
+
+    ;; (local-set-key (kbd "C-. h") 'outline-cycle) ;; not working well
     (local-set-key (kbd "C-. C-s") 'show-entry) ;; not working well
     (local-set-key (kbd "C-. C-h") 'hide-entry) ;; not working well
     (local-set-key (kbd "C-. C-a") 'show-all)  ;; not necessary because it's in global already
     (local-set-key (kbd "C-. C-l") 'hide-body-recenter)
     )
 (add-hook 'python-mode-hook 'hs-python-and-shortcuts)
-
 ;; sage mode
 (when (file-exists-p "/usr/bin/sage")
 	(add-to-list 'load-path (expand-file-name "~/.emacs.d/elisp/sage_mode/emacs"))
