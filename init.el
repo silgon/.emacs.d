@@ -1,6 +1,9 @@
 ;;; Package --- Sumary:
 ;; emacs configuration
 
+;; WARNING: for Emacs 24.5 some tramp version, you have to add the following to your /etc/hosts file. Reference: https://stackoverflow.com/a/36380255/2237916
+;;  127.0.0.1  host.does.not.exist
+
 ;;; Commentary:
 ;; Before running properly this installation you will need to install some packages
 ;;   sudo apt-get install clang libclang-dev # in the case of ubuntu
