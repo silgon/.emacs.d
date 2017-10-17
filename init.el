@@ -16,7 +16,9 @@
 (setq-default frame-title-format '("%f [%m]"))
 ;;; code:
 ;; emacs server
-(server-start)
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 ;; auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony
 ;; company-c-headers company-anaconda iedit auto-complete auto-complete-c-headers
