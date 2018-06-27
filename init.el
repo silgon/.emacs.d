@@ -33,7 +33,7 @@
 (setq inhibit-startup-message t)
 ;; install the packages I require
 (require 'package)
-(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic hide-comnt ess ido-vertical-mode find-file-in-project company-web php-mode company-php ac-php minizinc-mode multiple-cursors dockerfile-mode gitignore-mode ido-occur protobuf-mode))
+(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic hide-comnt ess ido-vertical-mode find-file-in-project company-web php-mode company-php ac-php minizinc-mode multiple-cursors dockerfile-mode gitignore-mode ido-occur protobuf-mode js2-mode js2-refactor tern company-tern))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -608,7 +608,16 @@ buffer is not visiting a file."
 (setq save-abbrevs nil)
 (add-hook 'julia-mode-hook 'abbrev-mode)
 
+(add-to-list 'company-backends 'company-tern)
+(add-hook 'js2-mode-hook (lambda ()
+                           (tern-mode)
+                             (company-mode)))
 
+;; (add-hook 'js-mode-hook (lambda () (tern-mode t)))
+;; (eval-after-load 'tern
+;;    '(progn
+;;       (require 'tern-auto-complete)
+;;       (tern-ac-setup)))
 
 ;; (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
