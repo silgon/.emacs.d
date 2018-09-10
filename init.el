@@ -163,6 +163,13 @@
 ;; scroll by one
 (global-set-key (kbd "M-n") (lambda () (interactive) (scroll-up 1)))
 (global-set-key (kbd "M-p") (lambda () (interactive) (scroll-down 1)))
+;; respect scroll in markdown mode
+(eval-after-load "markdown-mode"
+	'(define-key markdown-mode-map (kbd "M-n") nil))
+(eval-after-load "markdown-mode"
+	'(define-key markdown-mode-map (kbd "M-p") nil))
+
+
 
 ;; don't show the scroll and others
 (scroll-bar-mode -1)
