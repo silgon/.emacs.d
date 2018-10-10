@@ -360,6 +360,7 @@
 
 ;; (require 'company-anaconda)
 (add-hook 'python-mode-hook 'anaconda-mode)
+(add-hook 'python-mode-hook 'anaconda-eldoc-mode)
 (eval-after-load 'company '(progn
            (add-to-list 'company-backends 'company-anaconda)
            (add-to-list 'company-backends 'company-irony)
@@ -374,16 +375,16 @@
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 
-(require 'php-mode)
-;; (eval-after-load 'php-mode
-;;   '(require 'php-ext))
-(add-hook 'php-mode-hook
-          '(lambda ()
-             (require 'company-php)
-             (company-mode t)
-             (ac-php-core-eldoc-setup) ;; enable eldoc
-             (make-local-variable 'company-backends)
-             (add-to-list 'company-backends 'company-ac-php-backend)))
+;; (require 'php-mode)
+;; ;; (eval-after-load 'php-mode
+;; ;;   '(require 'php-ext))
+;; (add-hook 'php-mode-hook
+;;           '(lambda ()
+;;              (require 'company-php)
+;;              (company-mode t)
+;;              (ac-php-core-eldoc-setup) ;; enable eldoc
+;;              (make-local-variable 'company-backends)
+;;              (add-to-list 'company-backends 'company-ac-php-backend)))
 
 ;; indentiation stuff (maybe some variable is missing for other language
 (setq-default indent-tabs-mode nil)
