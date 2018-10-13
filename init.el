@@ -41,6 +41,8 @@
 ; fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
+
+(require 'rx)
 ; install the missing packages
 (dolist (package package-list)
  (unless (package-installed-p package)
@@ -357,7 +359,6 @@
 ;; (require 'company-irony)
 ;; (require 'company-inf-python)
 (require 'company-irony-c-headers)
-
 ;; (require 'company-anaconda)
 (add-hook 'python-mode-hook 'anaconda-mode)
 (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
