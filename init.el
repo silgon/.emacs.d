@@ -262,7 +262,8 @@
     (hide-body)
     (recenter))
 (defun hs-python-and-shortcuts ()
-    (setq outline-regexp "[[:space:]]*\\_<\\(?:\\(?:class\\|rdef\\|e\\(?:l\\(?:if\\|se\\)\\|xcept\\)\\|f\\(?:inally\\|or\\)\\|if\\|try\\|w\\(?:hile\\|ith\\)\\)\\)\\_>")
+    ;; (setq outline-regexp "[[:space:]]*\\_<\\(?:def\\|class\\|if\\|elif\\|else\\|try\\|except\\|finally\\|for\\|while\\|with\\|async[[:space:]]+\\(?:def\\|for\\|with\\)\\)\\_>")
+    (setq outline-regexp "\\s-*\\_<\\(?:def\\|class\\)\\_>")
     (outline-minor-mode t)
 
     ;; (local-set-key (kbd "C-. h") 'outline-cycle) ;; not working well
