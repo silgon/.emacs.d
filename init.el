@@ -265,12 +265,16 @@
     ;; (setq outline-regexp "[[:space:]]*\\_<\\(?:def\\|class\\|if\\|elif\\|else\\|try\\|except\\|finally\\|for\\|while\\|with\\|async[[:space:]]+\\(?:def\\|for\\|with\\)\\)\\_>")
     (setq outline-regexp "\\s-*\\_<\\(?:def\\|class\\)\\_>")
     (outline-minor-mode t)
+    (require 'hide-python-docstrings)
 
     ;; (local-set-key (kbd "C-. h") 'outline-cycle) ;; not working well
     (local-set-key (kbd "C-. C-s") 'show-entry) ;; not working well
     (local-set-key (kbd "C-. C-h") 'hide-entry) ;; not working well
     (local-set-key (kbd "C-. C-a") 'show-all)  ;; not necessary because it's in global already
     (local-set-key (kbd "C-. C-l") 'hide-body-recenter)
+    (local-set-key (kbd "C-. C-c") 'hide-python-docstrings) ;; not working well
+    (local-set-key (kbd "C-. C-n") 'show-python-docstrings) ;; not working well
+
     )
 (add-hook 'python-mode-hook 'hs-python-and-shortcuts)
 ;; sage mode
@@ -675,7 +679,6 @@ buffer is not visiting a file."
 (insert (current-kill 0)))))
 
 (global-set-key (kbd "C-c e") 'eval-and-replace)
-
 
 (add-hook 'mmm-mode-hook
           (lambda ()
