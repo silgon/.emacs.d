@@ -630,9 +630,9 @@ buffer is not visiting a file."
 ;; (add-hook 'js-mode-hook (lambda () (tern-mode t)))
 ;; (eval-after-load 'tern
 ;;    '(progn
+;;       (setq js-indent-level 2)
 ;;       (require 'tern-auto-complete)
 ;;       (tern-ac-setup)))
-
 ;; (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
@@ -646,15 +646,19 @@ buffer is not visiting a file."
 (add-to-list 'auto-mode-alist '("\\.php?\\'" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.blade\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tmpl?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.vue?\\'" . web-mode))
 
 (setq web-mode-enable-engine-detection t)
 (setq web-mode-enable-auto-indentation nil)
 
-(defun web-mode-hook ()
+(defun my-web-mode-hook ()
   "Hooks for Web mode."
-  (setq web-mode-markup-indent-offset 4)
-)
-(add-hook 'web-mode-hook  'web-mode-hook)
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-code-indent-offset 2)
+    (setq web-mode-indent-style 2)
+    )
+(add-hook 'web-mode-hook  'my-web-mode-hook)
 (defun yas-web-mode-fix ()
   (web-mode-buffer-refresh)
   (indent-for-tab-command))
