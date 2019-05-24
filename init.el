@@ -33,7 +33,7 @@
 (setq inhibit-startup-message t)
 ;; install the packages I require
 (require 'package)
-(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic hide-comnt ess ido-vertical-mode find-file-in-project company-web php-mode company-php ac-php minizinc-mode multiple-cursors dockerfile-mode gitignore-mode ido-occur protobuf-mode js2-mode js2-refactor tern company-tern vue-mode))
+(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic ess ido-vertical-mode find-file-in-project company-web php-mode company-php ac-php minizinc-mode multiple-cursors dockerfile-mode gitignore-mode ido-occur protobuf-mode js2-mode js2-refactor tern company-tern vue-mode))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -274,9 +274,12 @@
     (local-set-key (kbd "C-. C-l") 'hide-body-recenter)
     (local-set-key (kbd "C-. C-d") 'hide-python-docstrings) ;; not working well
     (local-set-key (kbd "C-. d") 'show-python-docstrings) ;; not working well
+    (require 'my-pythonic-activate)
+    (local-set-key (kbd "C-. .") 'my-pythonic-activate)
 
     )
 (add-hook 'python-mode-hook 'hs-python-and-shortcuts)
+
 ;; sage mode
 (when (file-exists-p "/usr/bin/sage")
 	(add-to-list 'load-path (expand-file-name "~/.emacs.d/elisp/sage_mode/emacs"))
@@ -372,6 +375,7 @@
            (add-to-list 'company-backends 'company-irony)
            (add-to-list 'company-backends '(company-irony-c-headers company-irony))
                                ))
+(setq-default c-basic-offset 2)
 (setq irony-additional-clang-options '("-std=c++11"))
 
 ;; (optional) adds CC special commands to `company-begin-commands' in order to
