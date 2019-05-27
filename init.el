@@ -272,11 +272,13 @@
     (local-set-key (kbd "C-. C-h") 'hide-entry) ;; not working well
     (local-set-key (kbd "C-. C-a") 'show-all)  ;; not necessary because it's in global already
     (local-set-key (kbd "C-. C-l") 'hide-body-recenter)
-    (local-set-key (kbd "C-. C-d") 'hide-python-docstrings) ;; not working well
-    (local-set-key (kbd "C-. d") 'show-python-docstrings) ;; not working well
+    (local-set-key (kbd "C-. C-r") 'hide-python-docstrings) ;; not working well
+    (local-set-key (kbd "C-. C-d") 'show-python-docstrings) ;; not working well
     (require 'my-pythonic-activate)
     (local-set-key (kbd "C-. .") 'my-pythonic-activate)
-
+    (setq python-indent 2)
+    (setq yas-indent-line 'auto)
+    ;; (set (make-local-variable 'yas-indent-line) 'fixed)
     )
 (add-hook 'python-mode-hook 'hs-python-and-shortcuts)
 
