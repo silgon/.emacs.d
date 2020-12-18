@@ -11,6 +11,10 @@
 ;; and of course, don't forget to download the git submodules
 ;; for php:
 ;; sudo apt-get install cscope php7
+;; as for golang, be sure to have the following variables in your environment
+;; PATH=$PATH:$(go env GOPATH)/bin
+;; GOPATH=$(go env GOPATH)
+
 
 ;; title of my emacs
 (setq-default frame-title-format '("%f [%m]"))
@@ -33,10 +37,22 @@
 (setq inhibit-startup-message t)
 ;; install the packages I require
 (require 'package)
-(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet zotelo org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic ess ido-vertical-mode find-file-in-project company-web php-mode company-php ac-php minizinc-mode multiple-cursors dockerfile-mode gitignore-mode ido-occur protobuf-mode js2-mode js2-refactor tern company-tern vue-mode))
+(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic ess ido-vertical-mode find-file-in-project company-web php-mode company-php ac-php minizinc-mode multiple-cursors dockerfile-mode gitignore-mode ido-occur protobuf-mode js2-mode js2-refactor tern company-tern vue-mode helm-bibtex exec-path-from-shell go-mode company-go))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
+
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+;; (setenv "PATH"
+;;   (concat
+;;       (getenv "PATH") ":"
+;;       (substring (shell-command-to-string "go env GOPATH") 0 -1)"/bin"
+;;   )
+;; )
+;; (setenv "GOPATH" (substring (shell-command-to-string "go env GOPATH") 0 -1))
+
 
 ; fetch the list of packages available
 (unless package-archive-contents
@@ -53,7 +69,7 @@
   (add-to-list 'load-path base)
   (dolist (f (directory-files base))
     (let ((name (concat base "/" f)))
-      (when (and (file-directory-p name) 
+      (when (and (file-directory-p name)
                  (not (equal f ".."))
                  (not (equal f ".")))
         (add-to-list 'load-path name)))))
@@ -185,11 +201,11 @@
 	"Toggle behavior of C-n and C-p, by visual line vs logical line."
 	(interactive)
 	(if line-move-visual
-		(progn 
+		(progn
 			(setq line-move-visual nil)
 			(message "line-move-visual deactivated")
 			)
-		(progn 
+		(progn
 			(setq line-move-visual t)
 			(message "line-move-visual enabled")
 			)
@@ -213,7 +229,7 @@
 (defun toggle-maximize-buffer () "Toggle Maximize buffer"
   (interactive)
   (if (= 1 (length (window-list)))
-      (jump-to-register '_) 
+      (jump-to-register '_)
     (progn
       (window-configuration-to-register '_)
       (delete-other-windows))))
@@ -230,7 +246,7 @@
 		  ("Help" (or (name . "\*Help\*")
 					  (name . "\*Apropos\*")
 					  (name . "\*info\*"))))))
-(add-hook 'ibuffer-mode-hook 
+(add-hook 'ibuffer-mode-hook
 	'(lambda ()
 	     (ibuffer-switch-to-saved-filter-groups "home")))
 
@@ -238,10 +254,10 @@
 (require 'epa-file)
 ;; (epa-file-enable)
 
-(global-set-key (kbd "C-. C-m") 'idomenu) 
+(global-set-key (kbd "C-. C-m") 'idomenu)
 ;; navigation
-(global-set-key (kbd "C-. C-p") 'beginning-of-defun) 
-(global-set-key (kbd "C-. C-n") 'end-of-defun) 
+(global-set-key (kbd "C-. C-p") 'beginning-of-defun)
+(global-set-key (kbd "C-. C-n") 'end-of-defun)
 ;; hs for navigation
 (defun hs-and-shortcuts ()
 	"Custom function to hide and show blocks"
@@ -276,7 +292,7 @@
     (local-set-key (kbd "C-. C-d") 'show-python-docstrings) ;; not working well
     (require 'my-pythonic-activate)
     (local-set-key (kbd "C-. .") 'my-pythonic-activate)
-    (setq python-indent 2)
+    (setq python-indent 4)
     (setq yas-indent-line 'auto)
     ;; (set (make-local-variable 'yas-indent-line) 'fixed)
     )
@@ -297,7 +313,7 @@
 ;; (yas--initialize)
 
 ;; keybinding to deactivate yas mode (sometimes it's useful)
-(global-set-key (kbd "C-x y") 'yas/minor-mode) 
+(global-set-key (kbd "C-x y") 'yas/minor-mode)
 (global-set-key (kbd "C-x C-y") 'yas-global-mode)
 
 ;; don't activate yasnippet in some script languages modes
@@ -321,13 +337,13 @@
 
 ;; iedit
 ;; (require 'iedit)
-(global-set-key (kbd "C-. C-e") 'iedit-mode) 
+(global-set-key (kbd "C-. C-e") 'iedit-mode)
 
 
 ;; flycheck
 ;; (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
-(global-set-key (kbd "C-. f") 'flycheck-mode) 
+(global-set-key (kbd "C-. f") 'flycheck-mode)
 
 ;; (custom-set-variables
 ;; 	'(flycheck-c/c++-googlelint-executable "cpplint")
@@ -363,22 +379,36 @@
 (add-hook 'c-mode-hook 'irony-hooks)
 ;; (add-hook 'objc-mode-hook 'irony-mode)
 
-;; (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 
 ;; (require 'company-irony)
 ;; (require 'company-inf-python)
 (require 'company-irony-c-headers)
+(require 'company-go)
 ;; (require 'company-anaconda)
 (add-hook 'python-mode-hook 'anaconda-mode)
 (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
 (eval-after-load 'company '(progn
            (add-to-list 'company-backends 'company-anaconda)
-           (add-to-list 'company-backends 'company-irony)
-           (add-to-list 'company-backends '(company-irony-c-headers company-irony))
+           ;; (add-to-list 'company-backends 'company-irony)
+           ;; (add-to-list 'company-backends '(company-irony-c-headers company-irony))
                                ))
 (setq-default c-basic-offset 2)
 (setq irony-additional-clang-options '("-std=c++11"))
+
+(add-hook 'go-mode-hook (lambda ()
+                          (set (make-local-variable 'company-backends) '(company-go))
+                          (company-mode)))
+
+
+(setq company-tooltip-limit 20)                      ; bigger popup window
+(setq company-idle-delay .3)                         ; decrease delay before autocompletion popup shows
+(setq company-echo-delay 0)                          ; remove annoying blinking
+(setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
+
+;; (add-hook 'go-mode-hook (lambda ()
+;;                           (set (make-local-variable 'company-backends) '(company-go))
+;;                           (company-mode)))
 
 ;; (optional) adds CC special commands to `company-begin-commands' in order to
 ;; trigger completion at interesting places, such as after scope operator
@@ -387,16 +417,6 @@
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 
-;; (require 'php-mode)
-;; ;; (eval-after-load 'php-mode
-;; ;;   '(require 'php-ext))
-;; (add-hook 'php-mode-hook
-;;           '(lambda ()
-;;              (require 'company-php)
-;;              (company-mode t)
-;;              (ac-php-core-eldoc-setup) ;; enable eldoc
-;;              (make-local-variable 'company-backends)
-;;              (add-to-list 'company-backends 'company-ac-php-backend)))
 
 ;; indentiation stuff (maybe some variable is missing for other language
 (setq-default indent-tabs-mode nil)
@@ -417,6 +437,7 @@
 (setq ispell-program-name "aspell")
 
 ;; ido mode
+(setq ido-default-buffer-method 'selected-window)
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (require 'ido)
@@ -566,8 +587,8 @@ buffer is not visiting a file."
 
 ;; zotelo (for zotero)
 ;; (require 'zotelo)
-(add-hook 'TeX-mode-hook 'zotelo-minor-mode)
-(add-hook 'org-mode-hook 'zotelo-minor-mode)
+;; (add-hook 'TeX-mode-hook 'zotelo-minor-mode)
+;; (add-hook 'org-mode-hook 'zotelo-minor-mode)
 
 (setq org-latex-caption-above nil)  ; Table now has the caption below
 
@@ -582,6 +603,8 @@ buffer is not visiting a file."
 		;; color theme
 		(require 'color-theme)
 		(require 'color-theme-mycomidia)
+        ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+        ;; (load-theme `wilmersdorf t)
 		(color-theme-initialize)
 		(color-theme-mycomidia)
 		;; fullscreen
@@ -693,3 +716,24 @@ buffer is not visiting a file."
 (add-hook 'mmm-mode-hook
           (lambda ()
             (set-face-background 'mmm-default-submode-face nil)))
+
+(push
+ (cons
+  "docker"
+  '((tramp-login-program "docker")
+    (tramp-login-args (("exec" "-it") ("%h") ("/bin/bash")))
+    (tramp-remote-shell "/bin/sh")
+    (tramp-remote-shell-args ("-i") ("-c"))))
+ tramp-methods)
+
+(defadvice tramp-completion-handle-file-name-all-completions
+  (around dotemacs-completion-docker activate)
+  "(tramp-completion-handle-file-name-all-completions \"\" \"/docker:\" returns
+    a list of active Docker container names, followed by colons."
+  (if (equal (ad-get-arg 1) "/docker:")
+      (let* ((dockernames-raw (shell-command-to-string "docker ps | perl -we 'use strict; $_ = <>; m/^(.*)NAMES/ or die; my $offset = length($1); while(<>) {substr($_, 0, $offset, q()); chomp; for(split m/\\W+/) {print qq($_:\n)} }'"))
+             (dockernames (cl-remove-if-not
+                           #'(lambda (dockerline) (string-match ":$" dockerline))
+                           (split-string dockernames-raw "\n"))))
+        (setq ad-return-value dockernames))
+    ad-do-it))
