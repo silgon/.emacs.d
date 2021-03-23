@@ -12,8 +12,8 @@
 ;; for php:
 ;; sudo apt-get install cscope php7
 ;; as for golang, be sure to have the following variables in your environment
-;; PATH=$PATH:$(go env GOPATH)/bin
-;; GOPATH=$(go env GOPATH)
+;; export PATH=$PATH:$(go env GOPATH)/bin
+;; export GOPATH=$(go env GOPATH)
 
 
 ;; title of my emacs
@@ -24,12 +24,6 @@
 (unless (server-running-p)
   (server-start))
 
-;; auctex flycheck flycheck-google-cpplint anaconda-mode company company-irony
-;; company-c-headers company-anaconda iedit auto-complete auto-complete-c-headers
-;; irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet
-;; zotelo org ctable flycheck-irony
-
-
 ;; font
 (add-to-list 'default-frame-alist
                        '(font . "DejaVu Sans Mono-11"))
@@ -37,7 +31,7 @@
 (setq inhibit-startup-message t)
 ;; install the packages I require
 (require 'package)
-(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic ess ido-vertical-mode find-file-in-project company-web php-mode company-php ac-php minizinc-mode multiple-cursors dockerfile-mode gitignore-mode ido-occur protobuf-mode js2-mode js2-refactor tern company-tern vue-mode helm-bibtex exec-path-from-shell go-mode company-go))
+(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic ess ido-vertical-mode find-file-in-project company-web php-mode company-php ac-php minizinc-mode multiple-cursors dockerfile-mode gitignore-mode ido-occur protobuf-mode js2-mode js2-refactor vue-mode helm-bibtex exec-path-from-shell go-mode lsp-mode conda))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -52,7 +46,6 @@
 ;;   )
 ;; )
 ;; (setenv "GOPATH" (substring (shell-command-to-string "go env GOPATH") 0 -1))
-
 
 ; fetch the list of packages available
 (unless package-archive-contents
@@ -87,6 +80,14 @@
 	'(define-key php-mode-map (kbd "C-.") nil))
 
 
+(setq flycheck-checker-error-threshold 1000)
+
+(setq
+    conda-anaconda-home (expand-file-name "~/anaconda/")
+    conda-env-home-directory (expand-file-name "~/anaconda/") ;; as in previous example; not required
+    conda-env-subdirectory "envs")
+
+(global-set-key (kbd "C-. l") 'lsp) ;; get name
 
 ;; save desktop
 (load-file "~/.emacs.d/elisp/my-desktop.el")
@@ -129,11 +130,6 @@
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
-;; windows have some problems with ghostscript (gs) after installation of Miktex
-;; using gs from https://www.ghostscript.com/
-(if (eq window-system 'w32)
-    (setq preview-gs-command "C:\\Program Files\\gs\\gs9.21\\bin\\gswin64c.exe")
-    )
 
 
 ;; org-mode and org-reveal
@@ -213,15 +209,6 @@
 	)
 (global-set-key (kbd "C-. C-v") 'toggle-line-move-visual)
 
-;; irc
-(setq rcirc-server-alist
-      '(("irc.freenode.net"
-         :port 6665
-         ;; :connect-function open-tls-stream
-         :channels ("#emacs")
-			))
-	)
-
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer) ;; Use Ibuffer for Buffer List
 
@@ -290,8 +277,8 @@
     (local-set-key (kbd "C-. C-l") 'hide-body-recenter)
     (local-set-key (kbd "C-. C-r") 'hide-python-docstrings) ;; not working well
     (local-set-key (kbd "C-. C-d") 'show-python-docstrings) ;; not working well
-    (require 'my-pythonic-activate)
-    (local-set-key (kbd "C-. .") 'my-pythonic-activate)
+    ;; (require 'my-pythonic-activate)
+    ;; (local-set-key (kbd "C-. .") 'my-pythonic-activate)
     (setq python-indent 4)
     (setq yas-indent-line 'auto)
     ;; (set (make-local-variable 'yas-indent-line) 'fixed)
@@ -384,8 +371,6 @@
 ;; (require 'company-irony)
 ;; (require 'company-inf-python)
 (require 'company-irony-c-headers)
-(require 'company-go)
-;; (require 'company-anaconda)
 (add-hook 'python-mode-hook 'anaconda-mode)
 (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
 (eval-after-load 'company '(progn
@@ -396,19 +381,14 @@
 (setq-default c-basic-offset 2)
 (setq irony-additional-clang-options '("-std=c++11"))
 
-(add-hook 'go-mode-hook (lambda ()
-                          (set (make-local-variable 'company-backends) '(company-go))
-                          (company-mode)))
 
 
 (setq company-tooltip-limit 20)                      ; bigger popup window
-(setq company-idle-delay .3)                         ; decrease delay before autocompletion popup shows
+;; (setq company-idle-delay .3)                         ; decrease delay before autocompletion popup shows
 (setq company-echo-delay 0)                          ; remove annoying blinking
 (setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
-
-;; (add-hook 'go-mode-hook (lambda ()
-;;                           (set (make-local-variable 'company-backends) '(company-go))
-;;                           (company-mode)))
+(setq company-minimum-prefix-length 1
+      company-idle-delay 0.1)
 
 ;; (optional) adds CC special commands to `company-begin-commands' in order to
 ;; trigger completion at interesting places, such as after scope operator
@@ -495,8 +475,6 @@ buffer is not visiting a file."
 		(add-to-list 'gud-jdb-classpath "~/android-sdk/platforms/android-17/android.jar")
 		))
 
-;; cmake mode
-(require 'cmake-mode)
 
 ;; etags
 ;; (defun find-file-upwards (file-to-find)
@@ -520,8 +498,6 @@ buffer is not visiting a file."
 ;; 		(message "Loading tags file: %s" my-tags-file)
 ;; 		(visit-tags-table my-tags-file)))
 
-;; ;; tabkey2 it seems it's really problematic, I deactivated
-;;(tabkey2-mode t)
 
 (when (equal emacs-major-version 24)
 	;; if emacs 24 then we can use the great org-babel mode
@@ -559,7 +535,7 @@ buffer is not visiting a file."
 	)
 
 ;; others
-(global-set-key (kbd "C-. l") 'visual-line-mode)
+(global-set-key (kbd "C-. v") 'visual-line-mode)
 (global-set-key (kbd "C-. t") 'toggle-truncate-lines)
 (global-set-key (kbd "C-. C-b m") 'menu-bar-mode)
 (global-set-key (kbd "C-. C-b t") 'tool-bar-mode)
@@ -585,10 +561,6 @@ buffer is not visiting a file."
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
 (add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
 
-;; zotelo (for zotero)
-;; (require 'zotelo)
-;; (add-hook 'TeX-mode-hook 'zotelo-minor-mode)
-;; (add-hook 'org-mode-hook 'zotelo-minor-mode)
 
 (setq org-latex-caption-above nil)  ; Table now has the caption below
 
@@ -651,18 +623,6 @@ buffer is not visiting a file."
 (setq save-abbrevs nil)
 (add-hook 'julia-mode-hook 'abbrev-mode)
 
-(add-to-list 'company-backends 'company-tern)
-(add-hook 'js2-mode-hook (lambda ()
-                           (tern-mode)
-                             (company-mode)))
-
-;; (add-hook 'js-mode-hook (lambda () (tern-mode t)))
-;; (eval-after-load 'tern
-;;    '(progn
-;;       (setq js-indent-level 2)
-;;       (require 'tern-auto-complete)
-;;       (tern-ac-setup)))
-;; (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
@@ -737,3 +697,11 @@ buffer is not visiting a file."
                            (split-string dockernames-raw "\n"))))
         (setq ad-return-value dockernames))
     ad-do-it))
+
+
+
+(require 'lsp-mode)
+(add-hook 'web-mode-hook #'lsp)
+(setq lsp-keymap-prefix "C-. m")
+
+;; end of my file
