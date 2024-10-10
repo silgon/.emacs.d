@@ -31,7 +31,8 @@
 (setq inhibit-startup-message t)
 ;; install the packages I require
 (require 'package)
-(setq package-list '(auctex flycheck flymake-google-cpplint anaconda-mode company company-irony company-anaconda iedit auto-complete irony jedi cpputils-cmake python-environment markdown-mode web-mode yasnippet org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic ess ido-vertical-mode find-file-in-project company-web php-mode company-php ac-php minizinc-mode multiple-cursors dockerfile-mode gitignore-mode ido-occur protobuf-mode js2-mode js2-refactor vue-mode helm-bibtex exec-path-from-shell go-mode lsp-mode conda))
+(setq package-list '(auctex flycheck company iedit auto-complete irony cpputils-cmake markdown-mode web-mode yasnippet org ctable flycheck-irony yaml-mode company-irony-c-headers idomenu outline-magic ess ido-vertical-mode find-file-in-project company-web  minizinc-mode multiple-cursors dockerfile-mode gitignore-mode protobuf-mode js2-mode js2-refactor helm-bibtex exec-path-from-shell vue-mode go-mode conda lsp-mode quelpa use-package))
+;; lsp-mode lsp-ui
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -87,7 +88,11 @@
     conda-env-home-directory (expand-file-name "~/anaconda/") ;; as in previous example; not required
     conda-env-subdirectory "envs")
 
-(global-set-key (kbd "C-. l") 'lsp) ;; get name
+(global-set-key (kbd "C-. l") 'lsp) ;; lsp
+;; (setq lsp-ui-doc-enable nil)
+;; (setq lsp-ui-sideline-enable nil)
+;; (require 'lsp-mode)
+(add-hook 'web-mode-hook #'lsp)
 
 ;; save desktop
 (load-file "~/.emacs.d/elisp/my-desktop.el")
@@ -368,16 +373,18 @@
 
 (add-hook 'after-init-hook 'global-company-mode)
 
+(require 'company)
+
 ;; (require 'company-irony)
 ;; (require 'company-inf-python)
-(require 'company-irony-c-headers)
-(add-hook 'python-mode-hook 'anaconda-mode)
-(add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-(eval-after-load 'company '(progn
-           (add-to-list 'company-backends 'company-anaconda)
-           ;; (add-to-list 'company-backends 'company-irony)
-           ;; (add-to-list 'company-backends '(company-irony-c-headers company-irony))
-                               ))
+;; (require 'company-irony-c-headers)
+;; (add-hook 'python-mode-hook 'anaconda-mode)
+;; (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+;; (eval-after-load 'company '(progn
+;;            (add-to-list 'company-backends 'company-anaconda)
+;;            ;; (add-to-list 'company-backends 'company-irony)
+;;            ;; (add-to-list 'company-backends '(company-irony-c-headers company-irony))
+;;                                ))
 (setq-default c-basic-offset 2)
 (setq irony-additional-clang-options '("-std=c++11"))
 
@@ -498,7 +505,6 @@ buffer is not visiting a file."
 ;; 		(message "Loading tags file: %s" my-tags-file)
 ;; 		(visit-tags-table my-tags-file)))
 
-
 (when (equal emacs-major-version 24)
 	;; if emacs 24 then we can use the great org-babel mode
 	(org-babel-do-load-languages
@@ -536,6 +542,7 @@ buffer is not visiting a file."
 
 ;; others
 (global-set-key (kbd "C-. v") 'visual-line-mode)
+(add-hook 'org-mode-hook 'visual-line-mode)
 (global-set-key (kbd "C-. t") 'toggle-truncate-lines)
 (global-set-key (kbd "C-. C-b m") 'menu-bar-mode)
 (global-set-key (kbd "C-. C-b t") 'tool-bar-mode)
@@ -557,7 +564,7 @@ buffer is not visiting a file."
     (define-key org-mode-map (kbd "C-c r") 'reftex-citation)
     )
 (add-hook 'org-mode-hook 'org-mode-reftex-setup)
-
+(setq org-startup-folded t) 
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
 (add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
 
@@ -569,7 +576,6 @@ buffer is not visiting a file."
 	(setq org-latex-classes nil))
 
 ;; if X11 or terminal
-(require 'cl)
 (if (or (eq window-system 'x) (eq window-system 'w32))
     (progn
 		;; color theme
@@ -636,6 +642,12 @@ buffer is not visiting a file."
 (add-to-list 'auto-mode-alist '("\\.blade\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tmpl?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.vue?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.astro?\\'" . web-mode))
+
+(setq web-mode-engines-alist
+      '(("astro"    . "\\.astro\\'")
+        )
+)
 
 (setq web-mode-enable-engine-detection t)
 (setq web-mode-enable-auto-indentation nil)
@@ -698,10 +710,69 @@ buffer is not visiting a file."
         (setq ad-return-value dockernames))
     ad-do-it))
 
+(when (featurep 'project)
+  (when-let ((project (project-current)))
+    (with-no-warnings
+      (if (fboundp 'project-roots)
+          (car (project-roots project))
+        (project-root project)))))
+
+(setq gofmt-command "goimports")
+(add-hook 'before-save-hook 'gofmt-before-save)
+(setq markdown-use-pandoc-style-yaml-metadata t)
+;; (setq lsp-julia-package-dir nil)
+;; (setq lsp-julia-flags `("-J/home/fogg/.julia/compiled/v1.9/LanguageServer/ite7n_spZi4.so"))
+;; (setq lsp-julia-flags `("-J/home/fogg/.julia/compiled/v1.9/LanguageServer/languageserver.so"))
+;; (quelpa '(lsp-julia :fetcher github
+;;                     :repo "gdkrmr/lsp-julia"
+;;                     :files (:defaults "languageserver")))
+;; (require 'use-package)
+;; (use-package lsp-julia
+;;   :config
+;;   (setq lsp-julia-default-environment "~/.julia/environments/v1.9"))
+;; (require 'lsp-julia)
+;; (add-hook 'ess-julia-mode-hook #'lsp-mode)
+(use-package lsp-mode
+    :commands lsp
+    :ensure t
+    :diminish lsp-mode
+    :hook
+    (elixir-mode . lsp)
+    :init
+    (add-to-list 'exec-path "~/.emacs.d/elixir-ls"))
+
+(setq warning-minimum-level :emergency)
+
+(require 'org-download)
+(add-hook 'dired-mode-hook 'org-download-enable)
+(setq org-startup-with-inline-images t)
+
+(global-set-key (kbd "C-, g") 'gptel-send)
+(global-set-key (kbd "C-, C-g") (lambda () (interactive) (gptel-send '(4 gptel-send))))
+(setq gptel-model "gpt-4o-mini")
+(setq gptel-directives
+    '((default . "You are a large language and a helpful assistant. Respond concisely.")
+         (programming . "You are a large language model and a careful programmer. Provide code and only code as output without any additional text, prompt, note or ```.")
+         (writing . "You are a large language model and a writing assistant. Respond concisely.")
+         (chat . "You are a large language model and a conversation partner. Respond concisely.")))
 
 
-(require 'lsp-mode)
-(add-hook 'web-mode-hook #'lsp)
-(setq lsp-keymap-prefix "C-. m")
+(setq epa-pinentry-mode 'loopback)
 
-;; end of my file
+
+(if (>= emacs-major-version 27)
+    (set-fontset-font t '(#x1f000 . #x1faff)
+              (font-spec :family "Noto Color Emoji")))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+      '(org-download astro-ts-mode auctex company company-c-headers company-math company-reftex gnu-elpa-keyring-update eldoc elixir-mode use-package lsp-julia quelpa scss-mode cmake-mode zotelo yasnippet-snippets web-mode typescript-mode sass-mode protobuf-mode project outline-magic nginx-mode mutt-mode minizinc-mode lsp-mode lean-mode julia-mode json-mode js2-refactor ivy iedit ido-vertical-mode ido-occur helm-bibtex haskell-mode gitignore-mode find-file-in-project exec-path-from-shell ess elm-mode dockerfile-mode dash-functional cpputils-cmake conda company-anaconda)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
